@@ -21,13 +21,13 @@ const setTemplate = () => {
   const header = renderHeader()
   const input = renderInput()
   const todosList = renderTodosList(todosData)
-  
+
   return (
     `<section class="todos__elements">
         ${ header }
         ${ input }
         <ul class="todos__items-container">
-          
+          ${ todosList }
         </ul>
      </section>
     `
