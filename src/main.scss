@@ -18,11 +18,14 @@ button:focus {
   outline: none;
 }
 
-.todos{
-  width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 
-              0 25px 50px 0 rgba(0, 0, 0, 0.1);
-
+.todos__elements {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 550px;
 }
 
 .todos__title {
@@ -31,14 +34,30 @@ button:focus {
   font-weight: 100;
 }
 
-.todos__elements {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  width: 550px;
+.todos__select-all {
+  border: none;
+  color: #e6e6e6;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: 100;
+  height: 40px;
+  left: 10px;
+  opacity: 0;
+  position: absolute;
+  top: 130px;
+  transform: rotate(90deg);
+  transition: opacity 0.2s, color 0.2s;
+  width: 40px;
+
+  &--showed {
+    opacity: 1;
+  }
+
+  &--clicked {
+    color: #737373;
+  }
 }
+
 
 .todos__new-item {
   border: none;
@@ -56,6 +75,7 @@ button:focus {
   font-style: italic;
 }
 
+
 .todos__items-container {
   width: 100%;
   list-style: none;
@@ -65,12 +85,12 @@ button:focus {
 
 .todos__item {
   align-items: center;
+  background: white;
+  border-bottom: 1px solid #ededed;
   display: flex;
   font-size: 24px;
   font-weight: 100;
   line-height: 1.2;
-  border-bottom: 1px solid #ededed;
-  background: white;
 }
 
 .todos__item--selected {
@@ -86,12 +106,12 @@ button:focus {
 } 
 
 .todos__item-checkbox {
-  margin: 15px 15px;
-  width: 28px;
-  height: 28px;
-  position: relative;
-  border-radius: 50px;
   border: solid 1px rgba(0, 0, 0, 0.2);
+  border-radius: 50px;
+  height: 28px;
+  margin: 15px 15px;
+  position: relative;
+  width: 28px;
 
   &:hover {
     border-color: rgba(88, 195, 175, 0.3);
@@ -105,27 +125,27 @@ button:focus {
 
 .todos__item-checkbox
 label {
-  width: 20px;
+  border-radius: 50px;
+  cursor: pointer;
   height: 20px;
+  left: 4px;
   position: absolute;
   top: 4px;
-  left: 4px;
-  cursor: pointer;
-  border-radius: 50px;
+  width: 20px;
 
-  &:after {
+  &::after {
+    background: transparent;
+    border: 2px solid #58c3af;
+    border-right: none;
+    border-top: none;
     content: '';
-    width: 14px;
     height: 6px;
+    left: 1px;
+    opacity: 0;
     position: absolute;
     top: 3px;
-    left: 1px;
-    border: 2px solid #58c3af;
-    border-top: none;
-    border-right: none;
-    background: transparent;
-    opacity: 0;
     transform: rotate(-45deg);
+    width: 14px;
   }
   
   &:hover::after {
@@ -144,17 +164,26 @@ input[type=checkbox] {
 
 .todos__item-remove {
   border: none;
+  color: #cc9a9a;
   cursor: pointer;
+  font-size: 30px;
+  font-weight: 100;
   height: 40px;
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
   width: 40px;
 
-  &:after {
+  &::after {
     content: 'x';
-    display: none;
-    color: red;
+    vertical-align: super;
+  }
 
-    &:hover {
-      display: block;
-    }
+  &:hover {
+    opacity: 1;
+  }
+
+  &--clicked {
+    color: #af5b5e;
+    font-weight: 200;
   }
 }
