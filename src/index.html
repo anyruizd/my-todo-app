@@ -1,27 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>my-todo-app</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>my-todo-app</title>
-</head>
-
-<body>
-  <section class="todos__elements">
-    <h1 class="todos__title">todos</h1>
-    <button class="todos__select-all">❯</button>
-    <input autofocus="" class="todos__new-item" placeholder="What needs to be done?">
-    <ul class="todos__items-container"></ul>
-    <div class="todos__filters">
-      <div class="items-left__counter"></div>
-      <button class=>All</button>
-      <button>Active</button>
-      <button>Completed</button>
-      <button>Clear completed</button>
-    </div>
-  </section>
-</body>
-
+  <body>
+    <section class="todos__elements">
+      <h1 class="todos__title">todos</h1>
+      <button class="todos__select-all">❯</button>
+      <input
+        autofocus=""
+        class="todos__new-item"
+        placeholder="What needs to be done?"
+      />
+      <ul class="todos__items-container"></ul>
+      <div class="todos__controls">
+        <div class="items-left__counter">3 items left</div>
+        <div class="todos__filters">
+          <button>All</button>
+          <button>Active</button>
+          <button>Completed</button>
+        </div>
+        <button>Clear completed</button>
+      </div>
+    </section>
+  </body>
 </html>
