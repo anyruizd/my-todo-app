@@ -1,3 +1,7 @@
+@import './components/title.scss';
+@import './components/newItem.scss';
+@import './components/controllers.scss';
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,6 +22,10 @@ button:focus {
   outline: none;
 }
 
+.hidden {
+  display: none;
+}
+
 .todos__elements {
   align-items: center;
   display: flex;
@@ -27,54 +35,6 @@ button:focus {
   position: relative;
   width: 550px;
 }
-
-.todos__title {
-  color: rgba(175, 47, 47, 0.15);
-  font-size: 100px;
-  font-weight: 100;
-}
-
-.todos__select-all {
-  border: none;
-  color: #e6e6e6;
-  cursor: pointer;
-  font-size: 30px;
-  font-weight: 100;
-  height: 40px;
-  left: 10px;
-  opacity: 0;
-  position: absolute;
-  top: 130px;
-  transform: rotate(90deg);
-  transition: opacity 0.2s, color 0.2s;
-  width: 40px;
-
-  &--showed {
-    opacity: 1;
-  }
-
-  &--clicked {
-    color: #737373;
-  }
-}
-
-
-.todos__new-item {
-  border: none;
-  box-shadow: inset 0 -2px 1px rgba(0,0,0,0.03);
-  font-size: 24px;
-  font-weight: 100;
-  padding: 16px 16px 16px 60px;
-  width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 
-              0 25px 50px 0 rgba(0, 0, 0, 0.1);
-}
-
-.todos__new-item::placeholder {
-  color: rgba(77, 77, 77, 0.4);
-  font-style: italic;
-}
-
 
 .todos__items-container {
   width: 100%;
@@ -93,16 +53,17 @@ button:focus {
   line-height: 1.2;
 }
 
-.todos__item--selected {
-  color: #d9d9d9;
-  text-decoration: line-through;
-}
-
 .todos__item-text {
   flex: 1;
   line-height: 1.2;
   padding: 15px 15px 15px 5px;
   word-break: break-all;
+  text-decoration: none;
+
+  .todos__item--selected & {
+    color: #d9d9d9;
+    text-decoration: line-through;
+  }
 } 
 
 .todos__item-checkbox {
@@ -111,6 +72,7 @@ button:focus {
   height: 28px;
   margin: 15px 15px;
   position: relative;
+  transition: 0.4s border-color ease-in-out;
   width: 28px;
 
   &:hover {
@@ -119,7 +81,6 @@ button:focus {
 
   .todos__item--selected & {
     border-color: rgba(88, 195, 175, 0.6);
-    transition: 0.4s ease-in-out;
   }
 }
 
@@ -185,62 +146,5 @@ input[type=checkbox] {
   &--clicked {
     color: #af5b5e;
     font-weight: 200;
-  }
-}
-
-.todos__controls {
-  background-color: white;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 
-  0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  border-top: 1px solid #e6e6e6;
-  color: #777;
-  display: flex;
-  font-weight: 300;
-  height: 40px;
-  justify-content: space-between;
-  line-height: 1.4em;
-  opacity: 0;
-  padding: 10px 15px;
-  text-align: center;
-  width: 100%;
-
-  & button {
-    border: none;
-    color: inherit;
-    font: inherit;
-    cursor: pointer;
-    font-weight: inherit;
-    line-height: inherit;
-  }
-
-  > button:hover { // Cual es la forma correcta? & > button:hover o > button:hover !!funciona de las dos formas!!
-    text-decoration: underline;
-  }
-
-  &--showed {
-    opacity: 1;
-  }
-}
-
-.todos__filters {
-  display: flex;
-  justify-content: space-evenly;
-  width: 50%;
-
-  button {
-    margin: -4px 3px;
-    padding: 3px 7px;
-    text-decoration: none;
-    border: 1px solid transparent;
-    border-radius: 3px;
-    transition: .2s border-color;
-
-    &:hover {
-      border-color: rgba(175, 47, 47, 0.1);
-    }
-  }
-
-  &--clicked button {
-    border-color: rgba(175, 47, 47, 0.2);
   }
 }

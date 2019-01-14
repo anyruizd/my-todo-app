@@ -1,0 +1,77 @@
+.todos__select-all { // Not sure about this
+  border: none;
+  color: #e6e6e6;
+  cursor: pointer;
+  display: block;
+  font-size: 30px;
+  font-weight: 100;
+  height: 40px;
+  left: 10px;
+  position: absolute;
+  top: 130px;
+  transform: rotate(90deg);
+  transition: opacity 0.2s, color 0.2s;
+  width: 40px;
+
+  &:hover {
+    color: rgba(115, 115, 115, 0.5);
+  }
+
+  &--clicked {
+    color: rgba(114, 114, 114, 1);
+  }
+}
+
+.todos__controllers {
+  background-color: white;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 
+  0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  border-top: 1px solid #e6e6e6;
+  color: #777;
+  display: flex;
+  font-weight: 300;
+  height: 40px;
+  line-height: 1.4em;
+  padding: 10px 15px;
+  text-align: center;
+  width: 100%;
+
+  & button {
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+
+  & > button:hover { // Cual es la forma correcta? & > button:hover o > button:hover !!funciona de las dos formas!!
+    text-decoration: underline;
+  }
+}
+
+.todos__filters {
+  margin: auto 30px;
+  width: 50%;
+
+  button {
+    margin: -3px auto;
+    padding: 3px 6px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: .2s border-color;
+
+    &:hover {
+      border-color: rgba(175, 47, 47, 0.1);
+    }
+  }
+
+  &--clicked button {
+    border-color: rgba(175, 47, 47, 0.2);
+  }
+}
+
+.items-left__counter {
+  margin-left: 20px;
+}
