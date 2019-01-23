@@ -10,21 +10,22 @@
   <body>
     <section class="todos__elements">
       <h1 class="todos__title">todos</h1>
-      <button class="todos__select-all hidden">❯</button>
+      <button class="todos__select-all hidden" data-value="true">❯</button>
       <input
         autofocus=""
         class="todos__new-item"
         placeholder="What needs to be done?"
       />
-      <ul class="todos__items-container"></ul>
+      <ul class="todos__items-container">
+      </ul>
       <div class="todos__controllers hidden">
-        <div class="items-left__counter">3 items left</div>
+        <div class="items-left__counter">0 items left</div>
         <div class="todos__filters">
           <button>All</button>
           <button>Active</button>
           <button>Completed</button>
         </div>
-        <button class="todos__clear-completed hidden">Clear completed</button>
+        <button class="todos__clear-completed">Clear completed</button>
       </div>
     </section>
   </body>

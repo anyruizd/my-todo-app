@@ -1,4 +1,5 @@
 .todos__select-all { // Not sure about this
+  background-color: inherit;
   border: none;
   color: #e6e6e6;
   cursor: pointer;
@@ -37,6 +38,7 @@
   width: 100%;
 
   & button {
+    background-color: inherit;
     border: none;
     color: inherit;
     font: inherit;

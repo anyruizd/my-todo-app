@@ -37,10 +37,10 @@ button:focus {
 }
 
 .todos__items-container {
-  width: 100%;
-  list-style: none;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 
               0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  list-style: none;
+  width: 100%;
 }
 
 .todos__item {
@@ -137,10 +137,12 @@ input[type=checkbox] {
   &::after {
     content: 'x';
     vertical-align: super;
+    background-color: inherit;
   }
 
   &:hover {
     opacity: 1;
+    background-color: inherit;
   }
 
   &--clicked {

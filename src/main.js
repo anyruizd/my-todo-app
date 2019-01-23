@@ -1,87 +1,103 @@
 import './main.scss'
 
-/* ----------------------------------- Init app */
+const selectAllElement = document.querySelector('.todos__select-all')
+const itemsListElement = document.querySelector('.todos__items-container')
+const itemsLeftCounterElement = document.querySelector('.items-left__counter')
+const inputElement = document.querySelector('.todos__new-item')
+const controllersElement = document.querySelector('.todos__controllers')
+let indexCounter = 0
 
-const initApp = () => {
-  renderList()
-  handleEvents()
+function removeItem(item) {
+  // TODO: Deberia recibir la referencia del elemento y removerla 
+  const itemToRemove = item.closest('.todos__item')
+
+  itemToRemove.removeEventListener('click', handleItemsEvents)
+  itemToRemove.remove()
+  updateItemsLeft()
+  updateControlElementsVisibility()
 }
 
-/** ----------------------------------- Create new items */
-const todosData = []
-
-const createNewItem = () => {
-  const input = document.querySelector('.todos__new-item')
-  const enterKeyCode = 13
-
-  input.addEventListener('keypress', event => {
-    const currentValue = event.keyCode
-    if (currentValue === enterKeyCode) {
-      addTodoItem(input.value)
-      input.value = ''
-    }
-  })
-}
-
-const addTodoItem = item => {
-  const newItem = {
-    "text" : item,
-    "completed" : false
-  }
-  todosData.push(newItem)
-  renderList(todosData)
-  updateElements()
-  itemsReferences()
-}
-
-/** ----------------------------------- Read items created */
-
-const renderList = (list = []) => {
-  const nodeToMount = document.querySelector('.todos__items-container')
+function handleSelectAll() {
+  const itemsElements = itemsListElement.querySelectorAll('.todos__item')
+  const nextValue = selectAllElement.dataset.value === 'true' ? true : false
   
-  const itemsToDom = list.map((item, index) => {
-    return `<li class="todos__item">
-              <div class ="todos__item-checkbox">
-                <input type="checkbox" value="None" id="item-${index}-completed" name="check"/>
-                <label for="item-${index}-completed"></label>
-              </div>
-              <span class="todos__item-text">${item.text}</span>
-              <button class="todos__item-remove"></button>
-            </li>`
-  }).join('')
-
-  nodeToMount.innerHTML = itemsToDom
-}
-
-const updateElements = () => {
-  const controllersReference = document.querySelector('.todos__controllers')
-  const selectAllReference = document.querySelector('.todos__select-all')
-
-  controllersReference.classList.remove('hidden')
-  selectAllReference.classList.remove('hidden')
-
-}
-
-/* Update */
-
-// 1......... Marcar individual
-
-const itemsReferences = () => {
-  const itemReference = document.querySelector('.todos__items-container')
-
-  itemReference.addEventListener('click', (event) => {
-    const clickedElement = event.target
-    /* const isCheckbox = clickedElement.closest('.todos__item-checkbox')
-    const isRemove = clickedElement.classList.contains('todos__items-remove')
-
-    isCheckbox ? itemReference.classList.toggle('todos__item--selected') : '' */
-    console.log(clickedElement)
+  itemsElements.forEach(itemElement => {
+    const checkboxElement = itemElement.querySelector('input[type="checkbox"]')
+    checkboxElement.checked = nextValue
   })
+
+  selectAllElement.dataset.value = nextValue ? 'false' : 'true'
+  
+  updateItemsLeft()
 }
 
+function updateItemsLeft() {
+  const itemsElements = Array.from(itemsListElement.querySelectorAll('.todos__item'))
 
-const handleEvents = () => {
-  createNewItem()
+  const itemsLeftElements = itemsElements.filter(itemElement => {
+    const checkboxElement = itemElement.querySelector('input[type="checkbox"]')
+    return checkboxElement.checked
+  })
+
+  itemsLeftCounterElement.innerHTML = itemsLeftElements.length + ' items left'
 }
 
-initApp()
+function handleCreateNewItem(event) {
+  const enterKeyCode = 13
+  const currentValue = event.keyCode
+  const isEnter = currentValue === enterKeyCode
+
+  if (isEnter && inputElement.value) {
+    addItem(inputElement.value)
+    inputElement.value = ''
+  }
+}
+
+function addItem(itemText) {
+  itemsListElement.appendChild(createItemTemplate(itemText))
+
+  const itemsListElements = itemsListElement.querySelectorAll('.todos__item')
+  itemsListElements.forEach(item => item.addEventListener('click', handleItemsEvents))
+  updateControlElementsVisibility()
+}
+
+function updateControlElementsVisibility() {
+  const itemsListElements = itemsListElement.querySelectorAll('.todos__item')
+  const hasNoItems = itemsListElements.length === 0
+  console.log(itemsListElements.length)
+  if ( hasNoItems ) {
+    controllersElement.classList.add('hidden')
+    selectAllElement.classList.add('hidden')
+    
+  } else {
+    controllersElement.classList.remove('hidden')
+    selectAllElement.classList.remove('hidden')
+  }
+}
+
+function createItemTemplate(text) {
+  const parser = new DOMParser();
+  const template =  `
+    <li class="todos__item">
+      <div class ="todos__item-checkbox">
+        <input type="checkbox" value="None" id="item-${indexCounter}-completed" name="check"/>
+        <label for="item-${indexCounter}-completed"></label>
+      </div>
+      <span class="todos__item-text">${text}</span>
+      <button class="todos__item-remove" data-remove="remove-${indexCounter}-item"></button>
+    </li>
+  `
+  
+  indexCounter += 1
+  return parser.parseFromString(template, 'text/html').body.children[0]
+  
+}
+
+function handleItemsEvents (event) {
+  const clickedElement = event.target
+  clickedElement.classList.contains('todos__item-remove') ? removeItem(clickedElement) : ''
+}
+
+selectAllElement.addEventListener('click', handleSelectAll)
+inputElement.addEventListener('keypress', handleCreateNewItem)
+updateItemsLeft()
