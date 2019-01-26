@@ -1,5 +1,7 @@
 import './main.scss'
 
+// TODO: modify items reference scope, it is repeating in several functions
+
 const selectAllElement = document.querySelector('.todos__select-all')
 const itemsListElement = document.querySelector('.todos__items-container')
 const itemsLeftCounterElement = document.querySelector('.items-left__counter')
@@ -24,6 +26,7 @@ function handleSelectAll() {
   itemsElements.forEach(itemElement => {
     const checkboxElement = itemElement.querySelector('input[type="checkbox"]')
     checkboxElement.checked = nextValue
+    itemElement.classList.toggle('todos__item--selected')
   })
 
   selectAllElement.dataset.value = nextValue ? 'false' : 'true'
@@ -64,8 +67,7 @@ function addItem(itemText) {
 function updateControlElementsVisibility() {
   const itemsListElements = itemsListElement.querySelectorAll('.todos__item')
   const hasNoItems = itemsListElements.length === 0
-  console.log(itemsListElements.length)
-  if ( hasNoItems ) {
+  if (hasNoItems) {
     controllersElement.classList.add('hidden')
     selectAllElement.classList.add('hidden')
     
@@ -94,8 +96,16 @@ function createItemTemplate(text) {
 }
 
 function handleItemsEvents (event) {
+  const regex = /item-\d-completed/;
+
   const clickedElement = event.target
   clickedElement.classList.contains('todos__item-remove') ? removeItem(clickedElement) : ''
+  regex.test(clickedElement.id) ? selectItem(clickedElement) : ''
+}
+
+function selectItem(item) {
+  item.closest('.todos__item').classList.toggle('todos__item--selected')
+  updateItemsLeft()
 }
 
 selectAllElement.addEventListener('click', handleSelectAll)
