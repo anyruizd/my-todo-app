@@ -51,6 +51,14 @@ button:focus {
   font-size: 24px;
   font-weight: 100;
   line-height: 1.2;
+
+  &--showing {
+    display: flex;
+  }
+
+  &--hidden {
+    display: none;
+  }
 }
 
 .todos__item-text {
