@@ -10,13 +10,20 @@ const filtersElement = document.querySelector('.todos__filters')
 
 let indexCounter = 0
 
+/**
+ *  Removes item
+ * @param {Object} item 
+ */
 function removeItem(item) {
-  item.removeEventListener('click', handleItemsEvents)
+  item.removeEventListener('click', handleRemoveItemEvent)
   item.remove()
   updateItemsLeft()
   updateControlElementsVisibility()
-}
+} 
 
+/**
+ * Handles selectAll event
+ */
 function handleSelectAll() {
   // TODO: Check which elements don't have selected class active
   // and activate it, and if all of them have the class selected, 
@@ -37,6 +44,9 @@ function handleSelectAll() {
   updateItemsLeft()
 }
 
+/**
+ * Updates the number of items left
+ */
 function updateItemsLeft() {
   const itemsElements = Array.from(itemsListElement.querySelectorAll('.todos__item'))
 
@@ -45,14 +55,22 @@ function updateItemsLeft() {
   itemsLeftCounterElement.innerHTML = (itemsElements.length - itemsLeftElements.length) + ' items left'
 }
 
+/**
+ * Returns an array containing the checked items
+ * @param { Array } itemsList 
+ */
 function checkedItems(itemsList) {
   return itemsList.filter(item => {
       const checkboxElement = item.querySelector('input[type="checkbox"]')
       return checkboxElement.checked
-    })
+  })
 
 }
 
+/**
+ * Handles the newItem creation
+ * @param event 
+ */
 function handleCreateNewItem(event) {
   const enterKeyCode = 13
   const currentValue = event.keyCode
@@ -64,15 +82,54 @@ function handleCreateNewItem(event) {
   }
 }
 
-function addItem(itemText) {
-  itemsListElement.appendChild(createItemTemplate(itemText))
+/**
+ * Adds a new item to the items list
+ * @param {String} itemText 
+ */
+function addItem(itemContent) {
+  itemsListElement.appendChild(createItemTemplate(itemContent))
 
-  const itemsListElements = itemsListElement.querySelectorAll('.todos__item')
-  itemsListElements.forEach(item => item.addEventListener('click', handleItemsEvents))
+  const itemElement = itemsListElement.querySelector('.todos__item:last-child')
+  
+  const itemCheckbox = itemElement.querySelector('input[type="checkbox"]')
+  const itemText = itemElement.querySelector('.todos__item-text')
+  const itemRemove = itemElement.querySelector('.todos__item-remove')
+
+  itemCheckbox.addEventListener('click', handleSelectItemEvent)
+  itemText.addEventListener('dblclick', handleEditTextEvent)
+  itemRemove.addEventListener('click', handleRemoveItemEvent)
+
   updateControlElementsVisibility()
   updateItemsLeft()
 }
 
+/**
+ * Handles select item event
+ * @param  event 
+ */
+function handleSelectItemEvent(event) {
+  selectItem(event.target.closest('.todos__item'))
+}
+
+/**
+ * Handles edit text event
+ * @param event 
+ */
+function handleEditTextEvent(event) {
+  console.log('handleEditTextEvent!!!')
+}
+
+/**
+ * Handles remove item event
+ * @param event 
+ */
+function handleRemoveItemEvent(event) {
+  removeItem(event.target.closest('.todos__item'))
+}
+
+/**
+ * Shows control elements when is needed
+ */
 function updateControlElementsVisibility() {
   const itemsListElements = itemsListElement.querySelectorAll('.todos__item')
   const hasNoItems = itemsListElements.length === 0
@@ -86,6 +143,10 @@ function updateControlElementsVisibility() {
   }
 }
 
+/**
+ * Returns DOM element containing item HTML template 
+ * @param {String} text 
+ */
 function createItemTemplate(text) {
   const parser = new DOMParser();
   const template =  `
@@ -104,19 +165,20 @@ function createItemTemplate(text) {
   
 }
 
-function handleItemsEvents (event) {
-  const itemCompleted = /item-\d-completed/;
-
-  const clickedElement = event.target
-  clickedElement.classList.contains('todos__item-remove') ? removeItem(clickedElement.closest('.todos__item')) : ''
-  itemCompleted.test(clickedElement.id) ? selectItem(clickedElement.closest('.todos__item')) : ''
-}
-
+/**
+ * Select clicked item
+ * @param {*} item 
+ * 
+ */
 function selectItem(item) {
   item.classList.toggle('todos__item--selected')
   updateItemsLeft()
 }
 
+/**
+ * Hanldes clearCompleted event
+ * @param  event 
+ */
 function handleClearCompleted(event) {
   const itemsElements = itemsListElement.querySelectorAll('.todos__item')
   const itemsToRemove = checkedItems(Array.from(itemsElements))
@@ -126,6 +188,10 @@ function handleClearCompleted(event) {
   })
 }
 
+/**
+ * Handles filterElements event
+ * @param event 
+ */
 function handleFilterElements(event) {
   // TODO: Depending on the clicked filter button, shows elements as follows:
   // If "all": add --showing modifier to all elements nad remove --hidden
@@ -133,15 +199,18 @@ function handleFilterElements(event) {
   // If "active": filter all unchecked checkbox and add --showing
   const clickedElement = event.target.id
 
-  const filterType = {
+  const filterFunctions = {
     "show-all" : showAll,
     "show-active": showActive,
     "show-completed": showCompleted
   }
 
-  filterType[`${clickedElement}`]()
+  filterFunctions[`${clickedElement}`]()
 }
 
+/**
+ * Shows all the items list 
+ */
 function showAll() {
   const itemsElements = itemsListElement.querySelectorAll('.todos__item')
 
@@ -151,6 +220,9 @@ function showAll() {
   })
 }
 
+/**
+ * Shows active items list
+ */
 function showActive() {
   const itemsElements = [... itemsListElement.querySelectorAll('.todos__item')]
 
@@ -169,6 +241,9 @@ function showActive() {
   
 }
 
+/**
+ * Shows completed items list
+ */
 function showCompleted() {
   const itemsElements = itemsListElement.querySelectorAll('.todos__item')
   const itemsToShow = checkedItems([... itemsElements])
