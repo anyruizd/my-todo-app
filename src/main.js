@@ -8,7 +8,7 @@ const controllersElement = document.querySelector('.todos__controllers')
 const clearCompletedElement = document.querySelector('.todos__clear-completed')
 const filtersElement = document.querySelector('.todos__filters')
 
-let indexCounter = 0
+let itemCounter = 0
 
 /**
  *  Removes item
@@ -125,12 +125,12 @@ function handleItemEditEvent(event) {
   const currentValue = event.keyCode
   const inputElement = event.target
   const isEnter = currentValue === enterKeyCode
-  console.log(isEnter, inputElement.value)
+  
   if (isEnter && inputElement.value) {
     const parent = event.target.closest('.todos__item')
     const itemTextElement = parent.querySelector('.todos__item-text')
+    
     itemTextElement.innerHTML = inputElement.value
-
     parent.classList.remove('todos__item--editing')
   }
 }
@@ -168,15 +168,15 @@ function createItemTemplate(text) {
   const template =  `
     <li class="todos__item todos__item--showing">
       <div class ="todos__item-checkbox">
-        <input type="checkbox" value="None" id="item-${indexCounter}-completed" name="check"/>
-        <label for="item-${indexCounter}-completed"></label>
+        <input type="checkbox" value="None" id="item-${itemCounter}-completed" name="check"/>
+        <label for="item-${itemCounter}-completed"></label>
       </div>
       <span class="todos__item-text">${text}</span>
       <input class="todos__item-edit" type="text" value="${text}"/>
-      <button class="todos__item-remove" data-remove="remove-${indexCounter}-item"></button>
+      <button class="todos__item-remove" data-remove="remove-${itemCounter}-item"></button>
     </li>
   `
-  indexCounter += 1
+  itemCounter += 1
   return parser.parseFromString(template, 'text/html').body.children[0]
 }
 
