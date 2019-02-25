@@ -49,9 +49,7 @@ function handleSelectAll() {
  */
 function updateItemsLeft() {
   const itemsElements = Array.from(itemsListElement.querySelectorAll('.todos__item'))
-
   const itemsLeftElements = checkedItems(itemsElements)
-
   itemsLeftCounterElement.innerHTML = (itemsElements.length - itemsLeftElements.length) + ' items left'
 }
 
@@ -64,7 +62,6 @@ function checkedItems(itemsList) {
       const checkboxElement = item.querySelector('input[type="checkbox"]')
       return checkboxElement.checked
   })
-
 }
 
 /**
@@ -90,13 +87,14 @@ function addItem(itemContent) {
   itemsListElement.appendChild(createItemTemplate(itemContent))
 
   const itemElement = itemsListElement.querySelector('.todos__item:last-child')
-  
   const itemCheckbox = itemElement.querySelector('input[type="checkbox"]')
   const itemText = itemElement.querySelector('.todos__item-text')
+  const itemEdit = itemElement.querySelector('.todos__item-edit')
   const itemRemove = itemElement.querySelector('.todos__item-remove')
 
   itemCheckbox.addEventListener('click', handleSelectItemEvent)
   itemText.addEventListener('dblclick', handleEditTextEvent)
+  itemEdit.addEventListener('keypress', handleItemEditEvent)
   itemRemove.addEventListener('click', handleRemoveItemEvent)
 
   updateControlElementsVisibility()
@@ -116,7 +114,25 @@ function handleSelectItemEvent(event) {
  * @param event 
  */
 function handleEditTextEvent(event) {
-  console.log('handleEditTextEvent!!!')
+  const selectedItem = event.target
+  const parent = event.target.closest('.todos__item')
+  
+  parent.classList.add('todos__item--editing')
+}
+
+function handleItemEditEvent(event) {
+  const enterKeyCode = 13
+  const currentValue = event.keyCode
+  const inputElement = event.target
+  const isEnter = currentValue === enterKeyCode
+  console.log(isEnter, inputElement.value)
+  if (isEnter && inputElement.value) {
+    const parent = event.target.closest('.todos__item')
+    const itemTextElement = parent.querySelector('.todos__item-text')
+    itemTextElement.innerHTML = inputElement.value
+
+    parent.classList.remove('todos__item--editing')
+  }
 }
 
 /**
@@ -145,7 +161,7 @@ function updateControlElementsVisibility() {
 
 /**
  * Returns DOM element containing item HTML template 
- * @param {String} text 
+ * @param {string} text 
  */
 function createItemTemplate(text) {
   const parser = new DOMParser();
@@ -156,13 +172,12 @@ function createItemTemplate(text) {
         <label for="item-${indexCounter}-completed"></label>
       </div>
       <span class="todos__item-text">${text}</span>
+      <input class="todos__item-edit" type="text" value="${text}"/>
       <button class="todos__item-remove" data-remove="remove-${indexCounter}-item"></button>
     </li>
   `
-  
   indexCounter += 1
   return parser.parseFromString(template, 'text/html').body.children[0]
-  
 }
 
 /**
@@ -193,12 +208,7 @@ function handleClearCompleted(event) {
  * @param event 
  */
 function handleFilterElements(event) {
-  // TODO: Depending on the clicked filter button, shows elements as follows:
-  // If "all": add --showing modifier to all elements nad remove --hidden
-  // If "completed": filter all checked checbox and add --showing
-  // If "active": filter all unchecked checkbox and add --showing
   const clickedElement = event.target.id
-
   const filterFunctions = {
     "show-all" : showAll,
     "show-active": showActive,
@@ -234,11 +244,10 @@ function showActive() {
     const checkboxElement = item.querySelector('input[type="checkbox"]')
     return !checkboxElement.checked
   })
-  .forEach(item => {
+  itemsToShow.forEach(item => {
     item.classList.remove('todos__item--hidden')
     item.classList.add('todos__item--showing')
   })
-  
 }
 
 /**
