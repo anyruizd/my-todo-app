@@ -2,7 +2,7 @@
   "name": "my-todo-app",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "private": true,
   "scripts": {
     "build": "webpack",
     "start": "webpack-dev-server"
