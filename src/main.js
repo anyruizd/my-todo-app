@@ -25,10 +25,6 @@ function removeItem(item) {
  * Handles selectAll event
  */
 function handleSelectAll() {
-  // TODO: Check which elements don't have selected class active
-  // and activate it, and if all of them have the class selected, 
-  // then deactivate it.
-
   const itemsElements = itemsListElement.querySelectorAll('.todos__item')
   const nextValue = selectAllElement.dataset.value === 'true' ? true : false
   
@@ -50,7 +46,9 @@ function handleSelectAll() {
 function updateItemsLeft() {
   const itemsElements = Array.from(itemsListElement.querySelectorAll('.todos__item'))
   const itemsLeftElements = checkedItems(itemsElements)
-  itemsLeftCounterElement.innerHTML = (itemsElements.length - itemsLeftElements.length) + ' items left'
+
+  itemsLeftCounterElement.innerHTML = 
+  (itemsElements.length - itemsLeftElements.length) + ' items left'
 }
 
 /**
@@ -256,8 +254,7 @@ function showActive() {
 function showCompleted() {
   const itemsElements = itemsListElement.querySelectorAll('.todos__item')
   const itemsToShow = checkedItems([... itemsElements])
-
-  // TODO: How can I improve this?
+  
   itemsToShow.length ? itemsElements.forEach(item => {
     item.classList.add('todos__item--hidden')
   }) : ''
