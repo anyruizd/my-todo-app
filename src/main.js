@@ -55,7 +55,7 @@ function updateItemsLeft() {
  * Returns an array containing the checked items
  * @param { Array } itemsList 
  */
-function checkedItems(itemsList) {
+function getCheckedItems(itemsList) {
   return itemsList.filter(item => {
       const checkboxElement = item.querySelector('input[type="checkbox"]')
       return checkboxElement.checked
@@ -194,7 +194,7 @@ function selectItem(item) {
  */
 function handleClearCompleted(event) {
   const itemsElements = itemsListElement.querySelectorAll('.todos__item')
-  const itemsToRemove = checkedItems(Array.from(itemsElements))
+  const itemsToRemove = getCheckedItems(Array.from(itemsElements))
 
   itemsToRemove.forEach(item => {
     removeItem(item)
@@ -253,7 +253,7 @@ function showActive() {
  */
 function showCompleted() {
   const itemsElements = itemsListElement.querySelectorAll('.todos__item')
-  const itemsToShow = checkedItems([... itemsElements])
+  const itemsToShow = getCheckedItems([... itemsElements])
   
   itemsToShow.length ? itemsElements.forEach(item => {
     item.classList.add('todos__item--hidden')
