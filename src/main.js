@@ -2,7 +2,7 @@ import './main.scss'
 
 const selectAllElement = document.querySelector('.todos__select-all')
 const itemsListElement = document.querySelector('.todos__items-container')
-const itemsLeftCounterElement = document.querySelector('.items-left__counter')
+const itemsLeftCounterElement = document.querySelector('.todos__items-left-counter')
 const inputElement = document.querySelector('.todos__new-item')
 const controllersElement = document.querySelector('.todos__controllers')
 const clearCompletedElement = document.querySelector('.todos__clear-completed')
