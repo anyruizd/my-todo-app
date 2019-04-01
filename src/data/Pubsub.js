@@ -1,4 +1,4 @@
-class PubSub {
+export default class PubSub {
   constructor () {
     this.subscribers = [];
   }
@@ -17,9 +17,9 @@ class PubSub {
     });
   }
 
-  publish (eventName, event) {
+  publish (eventName, data) {
     this.subscribers
       .filter(subscriber => subscriber.eventName === eventName)
-      .forEach(subscriber => subscriber.callback(event));
+      .forEach(subscriber => subscriber.callback(data));
   }
 }
