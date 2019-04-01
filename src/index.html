@@ -8,25 +8,6 @@
   </head>
 
   <body>
-    <section class="todos__elements">
-      <h1 class="todos__title">todos</h1>
-      <button class="todos__select-all hidden" data-value="true">❯</button>
-      <input
-        autofocus=""
-        class="todos__new-item"
-        placeholder="What needs to be done?"
-      />
-      <ul class="todos__items-container">
-      </ul>
-      <div class="todos__controllers hidden">
-        <div class="todos__items-left-counter">0 items left</div>
-        <div class="todos__filters">
-          <button id="show-all">All</button>
-          <button id="show-active">Active</button>
-          <button id="show-completed">Completed</button>
-        </div>
-        <button class="todos__clear-completed">Clear completed</button>
-      </div>
-    </section>
+    <div id="root" class="todos__elements"></div>
   </body>
 </html>
