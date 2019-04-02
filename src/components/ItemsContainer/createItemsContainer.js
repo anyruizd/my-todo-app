@@ -5,7 +5,7 @@ export default function createItemsContainer(properties = {}) {
   const element = document.createElement('ul')
   element.classList.add('todos__items-container')
 
-  data.subscribe('addItem', () => {
+  function renderItems() {
     const list = data.getList()
 
     element.innerHTML = ''
@@ -13,7 +13,9 @@ export default function createItemsContainer(properties = {}) {
       const itemElement = createItem(itemData)
       element.appendChild(itemElement)
     });
-  })
+  }
+  renderItems();
+  data.subscribe('addItem', renderItems)
 
   return element
 }
