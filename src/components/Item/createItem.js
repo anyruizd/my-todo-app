@@ -1,6 +1,5 @@
 export default function createItem(properties = {}) {
-  const { value, completed } = properties;
-  const id = 'item-' + Math.round(Math.random() * 100000)
+  const { id, value, completed } = properties;
 
   const element = document.createElement('li')
   element.className = 'todos__item todos__item--showing'

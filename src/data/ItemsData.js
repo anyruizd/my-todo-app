@@ -6,7 +6,12 @@ export default class ItemsData extends PubSub {
     this.list = list;
   }
 
-  add(element) {
+  add(elementData) {
+    // TODO: add support to add multiple items at once
+    const element = {
+      ...elementData,
+      id: 'item-' + Math.round(Math.random() * 100000)
+    }
     this.list = [...this.list, element];
     this.publish('addItem', this.list);
   }
