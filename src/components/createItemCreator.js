@@ -1,4 +1,4 @@
-export default function createItemCreator (properties) {
+export default function createItemCreator (properties = {}) {
   const { placeholder, onAddItem } = properties;
 
   const element = document.createElement('input');

@@ -1,4 +1,4 @@
-export default function createItem(properties) {
+export default function createItem(properties = {}) {
   const { value, completed } = properties;
   const id = 'item-' + Math.round(Math.random() * 100000)
 

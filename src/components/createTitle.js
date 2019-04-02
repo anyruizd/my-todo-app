@@ -1,4 +1,4 @@
-export default function createTitle(properties) {
+export default function createTitle(properties = {}) {
   const { title } = properties;
 
   const element = document.createElement('h1')
