@@ -16,7 +16,7 @@ export default class ItemsData extends PubSub {
     this.publish('removeItem', this.list);
   }
 
-  get() {
+  getList() {
     return this.list
   }
 }

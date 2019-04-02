@@ -1,5 +1,5 @@
 export default function createItemCreator (properties) {
-  const { placeholder, addItem } = properties;
+  const { placeholder, onAddItem } = properties;
 
   const element = document.createElement('input');
   element.classList.add('todos__new-item');
@@ -13,7 +13,7 @@ export default function createItemCreator (properties) {
     const isEnter = currentValue === enterKeyCode
   
     if (isEnter && inputValue) {
-      addItem(inputValue)
+      onAddItem(inputValue)
       element.value = ''
     }
   });
