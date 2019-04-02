@@ -1,5 +1,5 @@
-import createItem from './createItem'
-import data from './../data/data'
+import createItem from '../Item/createItem'
+import data from '../../data/data'
 
 export default function createItemsContainer(properties = {}) {
   const element = document.createElement('ul')

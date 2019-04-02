@@ -1,10 +1,13 @@
-@import './components/title.scss';
-@import './components/new-item.scss';
+@import './components/Title/title.scss';
+@import './components/Item/Item.scss';
+@import './components/ItemCreator/itemCreator.scss';
+@import './components/ItemsContainer/itemsContainer.scss';
+
 @import './components/controllers.scss';
 @import './components//select-all.scss';
 @import './components/filters.scss';
 @import './components/left-counter.scss';
-@import './components/todos-items.scss';
+
 
 * {
   box-sizing: border-box;

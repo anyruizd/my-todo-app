@@ -1,7 +1,7 @@
 import data from './data/data'
-import createTitle from './components/createTitle';
-import createItemCreator from './components/createItemCreator';
-import createItemsContainer from './components/createItemsContainer'
+import createTitle from './components/Title/createTitle';
+import createItemCreator from './components/ItemCreator/createItemCreator';
+import createItemsContainer from './components/ItemsContainer/createItemsContainer'
 
 import './main.scss'
 
