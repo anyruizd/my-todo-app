@@ -5,12 +5,11 @@ export default function createItem(properties = {}) {
     completed,
     onSelect,
     onRemove,
-    onEdit,
-    onDoubleClick
+    onEdit
   } = properties;
   
   const element = document.createElement('li')
-  element.className = 'todos__item todos__item--showing'
+  element.className = `todos__item todos__item--showing ${completed ? "todos__item--selected" : ''}`
 
   const template = `
     <div class="todos__item-checkbox">
@@ -30,8 +29,19 @@ export default function createItem(properties = {}) {
 
   checkboxElement.addEventListener('click', () => onSelect(id))
   removeElement.addEventListener('click', () => onRemove(id))
-  itemTextElement.addEventListener('dblclick', () => onDoubleClick(id))
-  itemEditElement.addEventListener('keypress', () => onEdit(id))
+  itemTextElement.addEventListener('dblclick', () => { element.classList.add('todos__item--editing') })
+  itemEditElement.addEventListener('keypress', (event) => {
+    const enterKeyCode = 13
+    const currentValue = event.keyCode
+    const inputValue = event.target.value
+    const isEnter = currentValue === enterKeyCode
+  
+    if (isEnter && inputValue) {
+      onEdit(id, itemEditElement.value)
+      itemEditElement.value = ''
+      element.classList.remove('todos__item--editing')
+    }
+  })
   
   return element
 }
