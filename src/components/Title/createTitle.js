@@ -1,3 +1,5 @@
+import './title.scss'
+
 export default function createTitle(properties = {}) {
   const { title } = properties;
 
