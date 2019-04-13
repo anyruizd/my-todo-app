@@ -1,3 +1,5 @@
+import './itemCreator.scss'
+
 export default function createItemCreator (properties = {}) {
   const { placeholder, onAddItem } = properties;
 

@@ -1,3 +1,5 @@
+import './item.scss'
+
 export default function createItem(properties = {}) {
   const {
     id,
@@ -45,18 +47,3 @@ export default function createItem(properties = {}) {
   
   return element
 }
-
-
-/**
- * const itemElement = itemsListElement.querySelector('.todos__item:last-child')
-  const itemCheckbox = itemElement.querySelector('input[type="checkbox"]')
-  const itemText = itemElement.querySelector('.todos__item-text')
-  const itemEdit = itemElement.querySelector('.todos__item-edit')
-  const itemRemove = itemElement.querySelector('.todos__item-remove')
-
-  itemCheckbox.addEventListener('click', handleSelectItemEvent)
-  itemText.addEventListener('dblclick', handleEditTextEvent)
-  itemEdit.addEventListener('keypress', handleItemEditEvent)
-  itemRemove.addEventListener('click', handleRemoveItemEvent)
- * 
- */

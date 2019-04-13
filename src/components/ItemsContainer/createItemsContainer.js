@@ -1,11 +1,13 @@
 import createItem from '../Item/createItem'
 import data from '../../data/data'
 
-export default function createItemsContainer(properties = {}) {
+import './itemsContainer.scss'
+
+export default function createItemsContainer (properties = {}) {
   const element = document.createElement('ul')
   element.classList.add('todos__items-container')
 
-  function renderItems() {
+  function renderItems () {
     const list = data.getList()
     const events = {
       onSelect,
