@@ -1,7 +1,7 @@
 import data from './data/data'
 import createTitle from './components/Title/createTitle';
 import createItemCreator from './components/ItemCreator/createItemCreator';
-import selectAll from './components/SelectAll/selectAll'
+import createSelectAll from './components/SelectAll/createSelectAll'
 import createItemsContainer from './components/ItemsContainer/createItemsContainer'
 
 import './main.scss'
@@ -24,7 +24,7 @@ const itemCreator = createItemCreator({
   onAddItem
 })
 
-const selectAllButton = selectAll()
+const selectAllButton = createSelectAll()
 
 const itemsContainer = createItemsContainer()
 
