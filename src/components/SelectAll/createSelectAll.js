@@ -12,16 +12,12 @@ export default function createSelectAll (properties = {}) {
     const processAll = listCompleted.length === 0 || listCompleted.length === list.length
 
     if (processAll) {
-      list.forEach(({id}) => {
-        data.select(id)
-      })
+      list.forEach(({id}) => data.select(id))
     }
     else {
       list
       .filter(({completed}) => !completed)
-      .forEach(({id}) => {
-        data.select(id)
-      })
+      .forEach(({id}) => data.select(id))
     }
   }
   
