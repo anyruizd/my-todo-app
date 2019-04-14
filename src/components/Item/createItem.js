@@ -1,6 +1,6 @@
 import './item.scss'
 
-export default function createItem(properties = {}) {
+export default function createItem (properties = {}) {
   const {
     id,
     value,
@@ -32,6 +32,7 @@ export default function createItem(properties = {}) {
   checkboxElement.addEventListener('click', () => onSelect(id))
   removeElement.addEventListener('click', () => onRemove(id))
   itemTextElement.addEventListener('dblclick', () => { element.classList.add('todos__item--editing') })
+  
   itemEditElement.addEventListener('keypress', (event) => {
     const enterKeyCode = 13
     const currentValue = event.keyCode

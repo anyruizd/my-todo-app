@@ -1,7 +1,7 @@
 import data from '../../data/data'
 import './selectAll.scss'
 
-export default function selectAll (properties = {}) {
+export default function createSelectAll (properties = {}) {
   const element = document.createElement('button')
   element.classList.add('todos__select-all')
   element.innerHTML = '❯'
@@ -12,16 +12,16 @@ export default function selectAll (properties = {}) {
     const processAll = listCompleted.length === 0 || listCompleted.length === list.length
 
     if (processAll) {
-      list.forEach((item) => {
-        data.select(item.id)
-      });
+      list.forEach(({id}) => {
+        data.select(id)
+      })
     }
     else {
       list
       .filter(({completed}) => !completed)
-      .forEach((item) => {
-        data.select(item.id)
-      });
+      .forEach(({id}) => {
+        data.select(id)
+      })
     }
   }
   

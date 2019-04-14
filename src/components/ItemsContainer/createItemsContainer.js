@@ -15,7 +15,7 @@ export default function createItemsContainer (properties = {}) {
       onEdit
     }
     
-    element.innerHTML = ''
+    element.innerHTML = '' // Reset container before repainting
     list.forEach(itemData => {
       const itemElement = createItem({...itemData, ...events})
       element.appendChild(itemElement)
