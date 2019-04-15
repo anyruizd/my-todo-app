@@ -14,7 +14,8 @@ const title = createTitle({ title: 'todos'});
 function onAddItem(value) {
   data.add({
     value,
-    completed: false
+    completed: false,
+    visible: true
   })
 }
 
