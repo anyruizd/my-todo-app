@@ -39,6 +39,41 @@ export default class ItemsData extends PubSub {
     this.publish('updateItem', this.list);
   }
 
+  showActive () {
+    this.list
+    .forEach(element => {
+      if(element.completed) {
+        element.visible = false
+      } else {
+        element.visible = true
+      }
+    })
+
+    this.publish('updateItem', this.list);
+  }
+
+  showAll () {
+    this.list
+    .forEach(element => {
+      element.visible = true
+    })
+
+    this.publish('updateItem', this.list);
+  }
+
+  showCompleted () {
+    this.list
+    .forEach(element => {
+      if(element.completed) {
+        element.visible = true
+      } else {
+        element.visible = false
+      }
+    })
+
+    this.publish('updateItem', this.list);
+  }
+
   getList() {
     return this.list
   }

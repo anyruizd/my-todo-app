@@ -4,12 +4,14 @@ const data = new ItemsData();
 
 data.add({
   value: 'holiii',
-  completed: true
+  completed: true,
+  visible: true
 })
 
 data.add({
   value: 'Hello again',
-  completed: false
+  completed: false,
+  visible: true
 })
 
 export default data;

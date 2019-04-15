@@ -5,13 +5,18 @@ export default function createItem (properties = {}) {
     id,
     value,
     completed,
+    visible,
     onSelect,
     onRemove,
     onEdit
   } = properties;
   
   const element = document.createElement('li')
-  element.className = `todos__item todos__item--showing ${completed ? "todos__item--selected" : ''}`
+  element.className = `
+    todos__item
+    ${visible ? "todos__item--showing" : "todos__item--hidden"}
+    ${completed ? "todos__item--selected" : ''}
+  `
 
   const template = `
     <div class="todos__item-checkbox">
