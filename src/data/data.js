@@ -2,13 +2,13 @@ import ItemsData from './ItemsData'
 
 const data = new ItemsData();
 
-data.add({
+data.addItem({
   value: 'holiii',
   completed: true,
   visible: true
 })
 
-data.add({
+data.addItem({
   value: 'Hello again',
   completed: false,
   visible: true

@@ -5,16 +5,7 @@ export default function createClearButton () {
   element.classList.add('todos__clear-completed')
   element.innerHTML = 'Clear Completed'
 
-  function clearItems () {
-    const list = data.getList()
-    list
-    .filter(({completed}) => completed)
-    .forEach(element => {
-      data.remove(element.id)
-    });
-  }
-
-  element.addEventListener('click', clearItems)
-  // data.subscribe('updateItem', clearItems)
+  element.addEventListener('click', () => data.removeCompleted())
+  
   return element
 }
