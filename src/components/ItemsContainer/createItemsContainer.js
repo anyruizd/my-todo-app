@@ -8,7 +8,7 @@ export default function createItemsContainer (properties = {}) {
   element.classList.add('todos__items-container')
 
   function renderItems () {
-    const list = data.getList()
+    const list = data.getFilteredItems()
     const events = {
       onSelect,
       onRemove,
@@ -23,7 +23,7 @@ export default function createItemsContainer (properties = {}) {
   }
 
   function onSelect (id) {
-    data.select(id)
+    data.selectItem(id)
   }
 
   function onRemove (id) {
@@ -35,6 +35,7 @@ export default function createItemsContainer (properties = {}) {
   }
 
   data.subscribe('updateItem', renderItems)
+  data.subscribe('updateFilter', renderItems)
   renderItems();
 
   return element
