@@ -4,6 +4,7 @@ export default class ItemsData extends PubSub {
   constructor (list = []) {
     super();
     this.list = list;
+    this.filter = ''
   }
 
   add(elementData) {
@@ -21,13 +22,29 @@ export default class ItemsData extends PubSub {
     this.publish('updateItem', this.list);
   }
 
-  select(id) {
+  selectItem(id) {
     this.list.forEach(element => {
       if(element.id === id){
         element.completed = !element.completed
       }
     });
     this.publish('updateItem', this.list);
+  }
+
+  selectAll () {
+    const listCompleted = this.list.filter(({ completed }) => completed)
+    const processAll = 
+       listCompleted.length === 0 ||
+      listCompleted.length === this.list.length
+
+    if (processAll) {
+      this.list.forEach(({id}) => this.selectItem(id))
+    }
+    else {
+      this.list
+      .filter(({completed}) => !completed)
+      .forEach(({id}) => this.selectItem(id))
+    }
   }
 
   update(id, value) {
@@ -39,39 +56,23 @@ export default class ItemsData extends PubSub {
     this.publish('updateItem', this.list);
   }
 
-  showActive () {
-    this.list
-    .forEach(element => {
-      if(element.completed) {
-        element.visible = false
-      } else {
-        element.visible = true
-      }
-    })
-
-    this.publish('updateItem', this.list);
+  updateFilter (filter) {
+    this.filter = filter
+    this.publish('updateFilter', this.list);
   }
 
-  showAll () {
-    this.list
-    .forEach(element => {
-      element.visible = true
-    })
-
-    this.publish('updateItem', this.list);
-  }
-
-  showCompleted () {
-    this.list
-    .forEach(element => {
-      if(element.completed) {
-        element.visible = true
-      } else {
-        element.visible = false
+  getFilteredItems () {
+    if (!this.filter) {
+      return this.list
+    }
+    return this.list.filter(element => {
+      if (this.filter === 'active') {
+        return !element.completed
+      } 
+      else if (this.filter === 'completed') {
+        return element.completed
       }
     })
-
-    this.publish('updateItem', this.list);
   }
 
   getList() {

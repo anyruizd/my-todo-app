@@ -13,9 +13,7 @@ export default function createItem (properties = {}) {
   
   const element = document.createElement('li')
   element.className = `
-    todos__item
-    ${visible ? "todos__item--showing" : "todos__item--hidden"}
-    ${completed ? "todos__item--selected" : ''}
+    todos__item ${completed ? "todos__item--selected" : ''}
   `
 
   const template = `
