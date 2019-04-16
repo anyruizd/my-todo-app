@@ -1,12 +1,12 @@
+import data from './../../data/data'
 import './itemCreator.scss'
 
 export default function createItemCreator (properties = {}) {
-  const { placeholder, onAddItem } = properties;
 
   const element = document.createElement('input');
   element.classList.add('todos__new-item');
   element.autofocus = ''
-  element.placeholder = placeholder
+  element.placeholder = 'What needs to be done?'
   
   element.addEventListener('keypress', event => {
     const enterKeyCode = 13
@@ -15,7 +15,10 @@ export default function createItemCreator (properties = {}) {
     const isEnter = currentValue === enterKeyCode
   
     if (isEnter && inputValue) {
-      onAddItem(inputValue)
+      data.addItem({
+        value: element.value,
+        completed: false
+      })
       element.value = ''
     }
   });

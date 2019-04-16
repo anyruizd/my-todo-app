@@ -6,8 +6,8 @@ export default function createLeftCounter (properties = {}) {
   element.classList.add('todos__items-left-counter')
 
   function updateLeftCounter () { 
-    const list = data.getList()
-    const numberOfItemsLeft = list.filter(({completed}) => !completed).length
+    const listActive = data.getActive()
+    const numberOfItemsLeft = listActive.length
     
     element.innerHTML = `${numberOfItemsLeft} items left`
   } 

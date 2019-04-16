@@ -5,7 +5,6 @@ export default function createItem (properties = {}) {
     id,
     value,
     completed,
-    visible,
     onSelect,
     onRemove,
     onEdit
@@ -16,16 +15,22 @@ export default function createItem (properties = {}) {
     todos__item ${completed ? "todos__item--selected" : ''}
   `
 
-  const template = `
-    <div class="todos__item-checkbox">
-      <input ${completed ? "checked" : ''} type="checkbox" value="None" id="${id}" name="check"/>
+  element.innerHTML = `
+    <div
+      class="todos__item-checkbox">
+      <input ${completed ? "checked" : ''}
+      type="checkbox" value="None"
+      id="${id}"
+      name="check"/>
       <label for="${id}"></label>
     </div>
     <span class="todos__item-text">${value}</span>
-    <input class="todos__item-edit" type="text" value="${value}"/>
+    <input class="todos__item-edit"
+      type="text"
+      value="${value}"
+    />
     <button class="todos__item-remove"></button>
-    `
-  element.innerHTML = template
+  `
 
   const checkboxElement = element.querySelector('input[type="checkbox"]')
   const removeElement = element.querySelector('.todos__item-remove')
@@ -34,7 +39,9 @@ export default function createItem (properties = {}) {
 
   checkboxElement.addEventListener('click', () => onSelect(id))
   removeElement.addEventListener('click', () => onRemove(id))
-  itemTextElement.addEventListener('dblclick', () => { element.classList.add('todos__item--editing') })
+  itemTextElement.addEventListener('dblclick', () => { 
+    element.classList.add('todos__item--editing') 
+  })
   
   itemEditElement.addEventListener('keypress', (event) => {
     const enterKeyCode = 13

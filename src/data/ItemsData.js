@@ -7,7 +7,7 @@ export default class ItemsData extends PubSub {
     this.filter = ''
   }
 
-  add(elementData) {
+  addItem(elementData) {
     // TODO: add support to add multiple items at once
     const element = {
       ...elementData,
@@ -17,14 +17,22 @@ export default class ItemsData extends PubSub {
     this.publish('updateItem', this.list);
   }
 
-  remove(id) {
+  removeItem(id) {
     this.list = this.list.filter(element => element.id !== id);
     this.publish('updateItem', this.list);
   }
 
-  selectItem(id) {
+  removeCompleted() {
+    const listCompleted = this.getCompleted()
+    listCompleted
+    .forEach(element => {
+      this.removeItem(element.id)
+    });
+  }
+
+  selectItem(idReceived) {
     this.list.forEach(element => {
-      if(element.id === id){
+      if(element.id === idReceived){
         element.completed = !element.completed
       }
     });
@@ -32,22 +40,22 @@ export default class ItemsData extends PubSub {
   }
 
   selectAll () {
-    const listCompleted = this.list.filter(({ completed }) => completed)
+    const listCompleted = this.getCompleted()
     const processAll = 
-       listCompleted.length === 0 ||
-      listCompleted.length === this.list.length
+    listCompleted.length === 0 || 
+    listCompleted.length === this.list.length
 
     if (processAll) {
       this.list.forEach(({id}) => this.selectItem(id))
     }
     else {
-      this.list
-      .filter(({completed}) => !completed)
+      const listActive = this.getActive()
+      listActive
       .forEach(({id}) => this.selectItem(id))
     }
   }
 
-  update(id, value) {
+  updateItem(id, value) {
     this.list.forEach(element => {
       if(element.id === id){
         element.value = value
@@ -65,14 +73,19 @@ export default class ItemsData extends PubSub {
     if (!this.filter) {
       return this.list
     }
-    return this.list.filter(element => {
-      if (this.filter === 'active') {
-        return !element.completed
-      } 
-      else if (this.filter === 'completed') {
-        return element.completed
-      }
-    })
+    else if (this.filter === 'active') {
+      return this.getActive()
+    } else {
+      return this.getCompleted()
+    }
+  }
+
+  getCompleted () {
+    return this.list.filter(({ completed }) => completed)
+  }
+
+  getActive () {
+    return this.list.filter(({completed}) => !completed)
   }
 
   getList() {

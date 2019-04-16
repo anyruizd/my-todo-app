@@ -27,11 +27,11 @@ export default function createItemsContainer (properties = {}) {
   }
 
   function onRemove (id) {
-    data.remove(id)
+    data.removeItem(id)
   }
 
   function onEdit (id, value) {
-    data.update(id, value)
+    data.updateItem(id, value)
   }
 
   data.subscribe('updateItem', renderItems)
