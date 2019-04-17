@@ -3,10 +3,12 @@ import './selectAll.scss'
 
 export default function createSelectAll (properties = {}) {
   const element = document.createElement('button')
-  element.classList.add('todos__select-all')
+  element.classList.add('select-all')
   element.innerHTML = '❯'
-  
-  element.addEventListener('click', () => data.selectAll())
+  element.addEventListener('click', () => {
+    element.classList.toggle('select-all--clicked')
+    data.selectAll()
+  })
 
   return element
 }

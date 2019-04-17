@@ -8,35 +8,32 @@ export default class ItemsData extends PubSub {
   }
 
   addItem(elementData) {
-    // TODO: add support to add multiple items at once
     const element = {
       ...elementData,
       id: 'item-' + Math.round(Math.random() * 100000)
     }
     this.list = [...this.list, element];
-    this.publish('updateItem', this.list);
+    this.publish('updateList', this.list);
+  }
+
+  updateItem(props) {
+    this.list.find((element, index, list) => {
+      if (element.id === props.id) {
+        list[index] = {...element, ...props }
+      }
+    })
+
+    this.publish('updateList', this.list);
   }
 
   removeItem(id) {
     this.list = this.list.filter(element => element.id !== id);
-    this.publish('updateItem', this.list);
+    this.publish('updateList', this.list);
   }
 
   removeCompleted() {
-    const listCompleted = this.getCompleted()
-    listCompleted
-    .forEach(element => {
-      this.removeItem(element.id)
-    });
-  }
-
-  selectItem(idReceived) {
-    this.list.forEach(element => {
-      if(element.id === idReceived){
-        element.completed = !element.completed
-      }
-    });
-    this.publish('updateItem', this.list);
+    this.list = this.list.filter(element => !element.completed);
+    this.publish('updateList', this.list);
   }
 
   selectAll () {
@@ -46,22 +43,17 @@ export default class ItemsData extends PubSub {
     listCompleted.length === this.list.length
 
     if (processAll) {
-      this.list.forEach(({id}) => this.selectItem(id))
+      this.list.forEach(item => { 
+        item.completed = !item.completed
+      })
     }
     else {
       const listActive = this.getActive()
       listActive
-      .forEach(({id}) => this.selectItem(id))
+      .forEach((item) => item.completed = !item.completed)
     }
-  }
 
-  updateItem(id, value) {
-    this.list.forEach(element => {
-      if(element.id === id){
-        element.value = value
-      }
-    })
-    this.publish('updateItem', this.list);
+    this.publish('updateList', this.list);
   }
 
   updateFilter (filter) {

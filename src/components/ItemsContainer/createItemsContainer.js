@@ -5,25 +5,10 @@ import './itemsContainer.scss'
 
 export default function createItemsContainer (properties = {}) {
   const element = document.createElement('ul')
-  element.classList.add('todos__items-container')
+  element.classList.add('items-container')
 
-  function renderItems () {
-    const list = data.getFilteredItems()
-    const events = {
-      onSelect,
-      onRemove,
-      onEdit
-    }
-    
-    element.innerHTML = '' // Reset container before repainting
-    list.forEach(itemData => {
-      const itemElement = createItem({...itemData, ...events})
-      element.appendChild(itemElement)
-    });
-  }
-
-  function onSelect (id) {
-    data.selectItem(id)
+  function onSelect (id, completed) {
+    data.updateItem({ id, completed })
   }
 
   function onRemove (id) {
@@ -31,10 +16,27 @@ export default function createItemsContainer (properties = {}) {
   }
 
   function onEdit (id, value) {
-    data.updateItem(id, value)
+    data.updateItem({ id, value })
   }
 
-  data.subscribe('updateItem', renderItems)
+  function renderItems () {
+    const list = data.getFilteredItems()
+    
+    // Reset container before repainting
+    element.innerHTML = ''
+    
+    list.forEach(itemData => {
+      const itemElement = createItem({
+        ...itemData,
+        onSelect,
+        onRemove,
+        onEdit
+       })
+      element.appendChild(itemElement)
+    });
+  }
+
+  data.subscribe('updateList', renderItems)
   data.subscribe('updateFilter', renderItems)
   renderItems();
 

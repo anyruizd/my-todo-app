@@ -1,4 +1,3 @@
-import data from './data/data'
 import createTitle from './components/Title/createTitle';
 import createItemCreator from './components/ItemCreator/createItemCreator';
 import createSelectAll from './components/SelectAll/createSelectAll'
@@ -10,9 +9,7 @@ import './main.scss'
 const rootElement = document.querySelector('#root');
 
 const title = createTitle();
-
 const itemCreator = createItemCreator()
-
 const selectAllButton = createSelectAll()
 const itemsContainer = createItemsContainer()
 const footer = createFooter()

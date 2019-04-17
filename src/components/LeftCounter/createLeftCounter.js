@@ -3,7 +3,7 @@ import './leftCounter.scss'
 
 export default function createLeftCounter (properties = {}) {
   const element = document.createElement('div')
-  element.classList.add('todos__items-left-counter')
+  element.classList.add('left-counter')
 
   function updateLeftCounter () { 
     const listActive = data.getActive()
@@ -13,7 +13,7 @@ export default function createLeftCounter (properties = {}) {
   } 
 
   updateLeftCounter()
-  data.subscribe('updateItem', updateLeftCounter)
+  data.subscribe('updateList', updateLeftCounter)
 
   return element
 }

@@ -2,25 +2,26 @@ import data from './../../data/data'
 import './filters.scss'
 
 export default function createFilters (properties = {}) {
-
   const element = document.createElement('div')
-  element.classList.add('todos__filters')
+  element.classList.add('filters')
 
   element.innerHTML = `
-    <button id="show-all">All</button>
-    <button id="show-active">Active</button>
-    <button id="show-completed">Completed</button>
+    <button class="filters__show-all">All</button>
+    <button class="filters__show-active">Active</button>
+    <button class="filters__show-completed">Completed</button>
   `
-  const showAllElement = element.querySelector('#show-all')
-  const showActiveElement = element.querySelector('#show-active')
-  const showCompletedElement = element.querySelector('#show-completed')
+  const showAllElement = element.querySelector('.filters__show-all')
+  const showActiveElement = element.querySelector('.filters__show-active')
+  const showCompletedElement = element.querySelector('.filters__show-completed')
 
   showAllElement.addEventListener('click',() => {
     data.updateFilter('')
   })
+
   showActiveElement.addEventListener('click',() => {
     data.updateFilter('active')
   })
+
   showCompletedElement.addEventListener('click',() => {
     data.updateFilter('completed')
   })
