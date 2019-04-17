@@ -11,36 +11,33 @@ export default function createItem (properties = {}) {
   } = properties;
   
   const element = document.createElement('li')
-  element.className = `
-    todos__item ${completed ? "todos__item--selected" : ''}
-  `
+  element.className = `item ${completed ? "item--selected" : ''}`
 
   element.innerHTML = `
-    <div
-      class="todos__item-checkbox">
+    <div class="item__checkbox">
       <input ${completed ? "checked" : ''}
       type="checkbox" value="None"
       id="${id}"
       name="check"/>
       <label for="${id}"></label>
     </div>
-    <span class="todos__item-text">${value}</span>
-    <input class="todos__item-edit"
+    <span class="item__text">${value}</span>
+    <input class="item__edit"
       type="text"
       value="${value}"
     />
-    <button class="todos__item-remove"></button>
+    <button class="item__remove"></button>
   `
 
   const checkboxElement = element.querySelector('input[type="checkbox"]')
-  const removeElement = element.querySelector('.todos__item-remove')
-  const itemTextElement = element.querySelector('.todos__item-text')
-  const itemEditElement = element.querySelector('.todos__item-edit')
+  const removeElement = element.querySelector('.item__remove')
+  const itemTextElement = element.querySelector('.item__text')
+  const itemEditElement = element.querySelector('.item__edit')
 
-  checkboxElement.addEventListener('click', () => onSelect(id))
+  checkboxElement.addEventListener('click', () => onSelect(id, !completed))
   removeElement.addEventListener('click', () => onRemove(id))
   itemTextElement.addEventListener('dblclick', () => { 
-    element.classList.add('todos__item--editing') 
+    element.classList.add('item--editing') 
   })
   
   itemEditElement.addEventListener('keypress', (event) => {
@@ -49,10 +46,10 @@ export default function createItem (properties = {}) {
     const inputValue = event.target.value
     const isEnter = currentValue === enterKeyCode
   
-    if (isEnter && inputValue) {
+    if (isEnter && inputValue.trim()) {
       onEdit(id, itemEditElement.value)
       itemEditElement.value = ''
-      element.classList.remove('todos__item--editing')
+      element.classList.remove('item--editing')
     }
   })
   

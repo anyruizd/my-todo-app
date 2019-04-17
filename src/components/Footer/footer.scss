@@ -1,4 +1,4 @@
-.todos__controllers {
+.footer {
   background-color: white;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 
   0 25px 50px 0 rgba(0, 0, 0, 0.1);
@@ -22,7 +22,7 @@
     line-height: inherit;
   }
 
-  & > button:hover { // Cual es la forma correcta? & > button:hover o > button:hover !!funciona de las dos formas!!
+  & > button:hover { 
     text-decoration: underline;
   }
 }

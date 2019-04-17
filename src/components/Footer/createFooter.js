@@ -5,7 +5,7 @@ import createClearButton from '../ClearButton/createClearButton'
 
 export default function createFooter (properties = {}) {
   const element = document.createElement('div')
-  element.classList.add('todos__controllers')
+  element.classList.add('footer')
 
   const filters = createFilters()
   const leftCounter = createLeftCounter()
