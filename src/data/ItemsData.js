@@ -16,10 +16,10 @@ export default class ItemsData extends PubSub {
     this.publish('updateList', this.list);
   }
 
-  updateItem(props) {
+  updateItem(data) {
     this.list.find((element, index, list) => {
-      if (element.id === props.id) {
-        list[index] = {...element, ...props }
+      if (element.id === data.id) {
+        list[index] = {...element, ...data }
       }
     })
 
