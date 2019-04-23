@@ -5,12 +5,12 @@ export default function createLeftCounter (properties = {}) {
   const element = document.createElement('div')
   element.classList.add('left-counter')
 
-  function updateLeftCounter () { 
+  function updateLeftCounter () {
     const listActive = data.getActive()
     const numberOfItemsLeft = listActive.length
-    
+
     element.innerHTML = `${numberOfItemsLeft} items left`
-  } 
+  }
 
   updateLeftCounter()
   data.subscribe('updateList', updateLeftCounter)

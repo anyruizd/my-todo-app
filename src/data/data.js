@@ -1,6 +1,6 @@
 import ItemsData from './ItemsData'
 
-const data = new ItemsData();
+const data = new ItemsData()
 
 data.addItem({
   value: 'holiii',
@@ -12,4 +12,4 @@ data.addItem({
   completed: false
 })
 
-export default data;
+export default data

@@ -21,24 +21,24 @@ export default function createItemsContainer (properties = {}) {
 
   function renderItems () {
     const list = data.getFilteredItems()
-    
+
     // Reset container before repainting
     element.innerHTML = ''
-    
+
     list.forEach(itemData => {
       const itemElement = createItem({
         ...itemData,
         onSelect,
         onRemove,
         onEdit
-       })
+      })
       element.appendChild(itemElement)
-    });
+    })
   }
 
   data.subscribe('updateList', renderItems)
   data.subscribe('updateFilter', renderItems)
-  renderItems();
+  renderItems()
 
   return element
 }

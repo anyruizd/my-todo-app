@@ -2,63 +2,63 @@ import PubSub from './PubSub'
 
 export default class ItemsData extends PubSub {
   constructor (list = []) {
-    super();
-    this.list = list;
+    super()
+    this.list = list
     this.filter = ''
   }
 
-  addItem(elementData) {
+  addItem (elementData) {
     const element = {
       ...elementData,
       id: 'item-' + Math.round(Math.random() * 100000)
     }
-    this.list = [...this.list, element];
-    this.publish('updateList', this.list);
+    this.list = [...this.list, element]
+    this.publish('updateList', this.list)
   }
 
-  updateItem(data) {
+  updateItem (data) {
     this.list.find((element, index, list) => {
       if (element.id === data.id) {
-        list[index] = {...element, ...data }
+        list[index] = { ...element, ...data }
       }
     })
 
-    this.publish('updateList', this.list);
+    this.publish('updateList', this.list)
   }
 
-  removeItem(id) {
-    this.list = this.list.filter(element => element.id !== id);
-    this.publish('updateList', this.list);
+  removeItem (id) {
+    this.list = this.list.filter(element => element.id !== id)
+    this.publish('updateList', this.list)
   }
 
-  removeCompleted() {
-    this.list = this.list.filter(element => !element.completed);
-    this.publish('updateList', this.list);
+  removeCompleted () {
+    this.list = this.list.filter(element => !element.completed)
+    this.publish('updateList', this.list)
   }
 
   selectAll () {
     const listCompleted = this.getCompleted()
-    const processAll = 
-    listCompleted.length === 0 || 
+    const processAll =
+    listCompleted.length === 0 ||
     listCompleted.length === this.list.length
 
     if (processAll) {
-      this.list.forEach(item => { 
+      this.list.forEach(item => {
         item.completed = !item.completed
       })
     }
     else {
       const listActive = this.getActive()
       listActive
-      .forEach((item) => item.completed = !item.completed)
+        .forEach((item) => (item.completed = !item.completed))
     }
 
-    this.publish('updateList', this.list);
+    this.publish('updateList', this.list)
   }
 
   updateFilter (filter) {
     this.filter = filter
-    this.publish('updateFilter', this.list);
+    this.publish('updateFilter', this.list)
   }
 
   getFilteredItems () {
@@ -67,7 +67,8 @@ export default class ItemsData extends PubSub {
     }
     else if (this.filter === 'active') {
       return this.getActive()
-    } else {
+    }
+    else {
       return this.getCompleted()
     }
   }
@@ -77,10 +78,10 @@ export default class ItemsData extends PubSub {
   }
 
   getActive () {
-    return this.list.filter(({completed}) => !completed)
+    return this.list.filter(({ completed }) => !completed)
   }
 
-  getList() {
+  getList () {
     return this.list
   }
 }

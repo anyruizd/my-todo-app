@@ -5,6 +5,6 @@ export default function createClearButton () {
   element.classList.add('clear-completed')
   element.innerHTML = 'Clear Completed'
   element.addEventListener('click', () => data.removeCompleted())
-  
+
   return element
 }

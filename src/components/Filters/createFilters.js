@@ -14,15 +14,15 @@ export default function createFilters (properties = {}) {
   const showActiveElement = element.querySelector('.filters__show-active')
   const showCompletedElement = element.querySelector('.filters__show-completed')
 
-  showAllElement.addEventListener('click',() => {
+  showAllElement.addEventListener('click', () => {
     data.updateFilter('')
   })
 
-  showActiveElement.addEventListener('click',() => {
+  showActiveElement.addEventListener('click', () => {
     data.updateFilter('active')
   })
 
-  showCompletedElement.addEventListener('click',() => {
+  showCompletedElement.addEventListener('click', () => {
     data.updateFilter('completed')
   })
 

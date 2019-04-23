@@ -8,14 +8,14 @@ export default function createItem (properties = {}) {
     onSelect,
     onRemove,
     onEdit
-  } = properties;
-  
+  } = properties
+
   const element = document.createElement('li')
-  element.className = `item ${completed ? "item--selected" : ''}`
+  element.className = `item ${completed ? 'item--selected' : ''}`
 
   element.innerHTML = `
     <div class="item__checkbox">
-      <input ${completed ? "checked" : ''}
+      <input ${completed ? 'checked' : ''}
       type="checkbox" value="None"
       id="${id}"
       name="check"/>
@@ -36,22 +36,22 @@ export default function createItem (properties = {}) {
 
   checkboxElement.addEventListener('click', () => onSelect(id, !completed))
   removeElement.addEventListener('click', () => onRemove(id))
-  itemTextElement.addEventListener('dblclick', () => { 
-    element.classList.add('item--editing') 
+  itemTextElement.addEventListener('dblclick', () => {
+    element.classList.add('item--editing')
   })
-  
+
   itemEditElement.addEventListener('keypress', (event) => {
     const enterKeyCode = 13
     const currentValue = event.keyCode
     const inputValue = event.target.value
     const isEnter = currentValue === enterKeyCode
-  
+
     if (isEnter && inputValue.trim()) {
       onEdit(id, itemEditElement.value)
       itemEditElement.value = ''
       element.classList.remove('item--editing')
     }
   })
-  
+
   return element
 }
