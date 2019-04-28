@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "jest src/components/Title/createTitle.test.js",
+    "test": "jest",
+    "test-dev": "jest --watch",
     "build": "webpack",
     "start": "webpack-dev-server",
     "lint": "eslint ./src"
