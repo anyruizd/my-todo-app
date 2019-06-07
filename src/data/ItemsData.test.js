@@ -9,18 +9,23 @@ test('Should return the list of items', () => {
   expect(list).toEqual([])
 })
 
-test('Should return the items list with new elements added', () => {
+test('Should return the new item added', () => {
   const data = new ItemsData()
-  const newItem = {
+  const expected = {
     value: 'Hello',
     completed: true
   }
-  data.addItem(newItem)
-  data.addItem(newItem)
 
-  const received = data.getList()
+  data.addItem(expected)
 
-  expect(received).toHaveLength(2)
+  const itemReceived = data.getList()
+  const receivedValue = itemReceived[0].value
+  const receivedCompleted = itemReceived[0].completed
+  const receivedId = itemReceived[0].id
+
+  expect(receivedValue).toBe(expected.value)
+  expect(receivedCompleted).toBe(expected.completed)
+  expect(receivedId).toMatch(/item-\d{4,5}$/)
 })
 
 test('Should allow to add several items at once', () => {
@@ -44,53 +49,22 @@ test('Should allow to add several items at once', () => {
   expect(itemsReceived).toHaveLength(3)
 })
 
-test('Should return the new item added', () => {
+test('Should call publish method when new item added', () => {
   const data = new ItemsData()
-  const expected = {
+  // data.publish = jest.fn() // Monkey patching, global pollution
+  const callback = jest.fn()
+  const item = {
     value: 'Hello',
     completed: true
   }
+  data.subscribe('updateList', callback)
+  data.addItem(item)
 
-  data.addItem(expected)
-
-  const itemReceived = data.getList()
-  const receivedValue = itemReceived[0].value
-  const receivedCompleted = itemReceived[0].completed
-  const receivedId = itemReceived[0].id
-
-  expect(receivedValue).toBe(expected.value)
-  expect(receivedCompleted).toBe(expected.completed)
-  expect(receivedId).toMatch(/item-\d{4,5}$/)
-})
-
-describe('Invalid items to add', () => {
-  const invalidItems = [
-    { name: 'number', value: 2 },
-    { name: 'string', value: 'holi' },
-    { name: 'empty object', value: {} },
-    { name: 'function', value: jest.fn() },
-    { name: 'array', value: [] }
-  ]
-
-  invalidItems.forEach(item => {
-    test(`Should do nothing if there's a ${item.name} to add`, () => {
-      const data = new ItemsData()
-      data.addItem(item.value)
-      const itemReceived = data.getList()
-      expect(itemReceived).toEqual([])
-    })
-  })
-})
-
-test('Should call publish method when new item added', () => {
-  const data = new ItemsData()
-  data.publish = jest.fn()
-  data.addItem({
-    value: 'Hello',
-    completed: true
-  })
-
-  expect(data.publish).toHaveBeenCalled()
+  expect(callback).toHaveBeenCalledWith([
+    {
+      ...item,
+      id: expect.any(String)
+    }])
 })
 
 test('Should return the list of items completed', () => {
@@ -152,11 +126,29 @@ test('Should remove items from the list', () => {
 
   data.addItem(item1, item2)
   const itemsReceived = data.getList()
-  const idToRemove = itemsReceived[1].id // How can I mock the id?
+  const idToRemove = itemsReceived[1].id
 
   data.removeItem(idToRemove)
   const received = data.getList()
 
+  expect(received).toHaveLength(1)
+  expect(received[0].value).toBe(item1.value)
+})
+
+test('Should do nothing if item id does not exist', () => {
+  const data = new ItemsData()
+  data.publish = jest.fn()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+
+  data.addItem(item1)
+
+  data.removeItem('item-aaaaa')
+  const received = data.getList()
+
+  // expect(data.publish).toHaveBeenCalledTimes(1) *** List is updating (data.publish) even if id does not exist
   expect(received).toHaveLength(1)
   expect(received[0].value).toBe(item1.value)
 })

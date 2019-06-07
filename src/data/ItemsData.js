@@ -9,19 +9,12 @@ export default class ItemsData extends PubSub {
 
   addItem (...elementData) {
     elementData.forEach(item => {
-      const isValid =
-      item &&
-      typeof item === 'object' &&
-      Object.keys(item).length !== 0
-
-      if (isValid) {
-        const element = {
-          ...item,
-          id: 'item-' + Math.round(Math.random() * 100000)
-        }
-        this.list = [...this.list, element]
-        this.publish('updateList', this.list)
+      const element = {
+        ...item,
+        id: 'item-' + Math.round(Math.random() * 100000)
       }
+      this.list = [...this.list, element]
+      this.publish('updateList', this.list)
     })
   }
 
@@ -94,21 +87,3 @@ export default class ItemsData extends PubSub {
     return this.list
   }
 }
-
-/**
- * Items data supports:
-
-1. Add new items to the list
-  -expected input and output
-  -call the publish when add new item
-  -Structure of the input
-  -id generation
-  -if no input
-  -if input is not an object
-  -if is the same input
-2. Remove items
-3. Edit items
-4. get list of items
-5.
-
- */
