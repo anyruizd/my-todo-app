@@ -341,9 +341,82 @@ test('Should select all items if there is no selected/completed items', () => {
   })
 })
 
-test.todo('Should unselect all the items if there is no unselected items')
-test.todo('Should select unselected items and selected remain as they are')
-test.todo('Should call data.publish when items have been selected')
+test('Should unselect all the items if there is no unselected items', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: true
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: true
+  }
+
+  data.addItem(item1, item2, item3)
+  data.selectAll()
+  const itemsReceived = data.getList()
+
+  itemsReceived.forEach(({ completed }) => {
+    expect(completed).toBe(false)
+  })
+})
+
+test('Should select unselected items and selected remain as they are', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: false
+  }
+
+  data.addItem(item1, item2, item3)
+  data.selectAll()
+  const itemsReceived = data.getList()
+
+  itemsReceived.forEach(({ completed }) => {
+    expect(completed).toBe(true)
+  })
+})
+
+test('Should call data.publish when items have been selected', () => {
+  const data = new ItemsData()
+  const callback = jest.fn()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+
+  data.subscribe('updateList', callback)
+  data.addItem(item1, item2)
+  data.selectAll()
+
+  expect(callback.mock.calls.length).toBe(3)
+  // The first argument of third call should be the list with all items completed
+  expect(callback.mock.calls[2][0]).toEqual([{
+    ...item1,
+    id: expect.anything()
+  },
+  {
+    ...item2,
+    completed: true,
+    id: expect.anything()
+  }])
+})
 
 test.todo('Should update filter to active')
 test.todo('Should update filter to completed')
