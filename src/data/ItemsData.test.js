@@ -267,19 +267,88 @@ test('Should call data.publish when item updated', () => {
   }])
 })
 
-test('Should remove completed items from the list', () => {})
-test('Should call data.publish when completed item removed', () => {})
-test('Should not remove uncompleted items', () => {})
+test('Should remove completed items from the list', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: true
+  }
 
-test('Should select all items if there is no selected items', () => {})
-test('Should unselect all the items if there is no unselected items', () => {})
-test('Should select unselected items and selected remain as they are', () => {})
-test('Should call data.publish when items have been selected', () => {})
+  data.addItem(item1, item2, item3)
+  data.removeCompleted()
+  const itemsReceived = data.getList()
 
-test('Should update filter to active', () => {})
-test('Should update filter to completed', () => {})
-test('Should call data.publish when filter has been updated', () => {})
-test('Should return all items if filter is empty', () => {})
-test('Should return uncompleted items if filter is equal to active', () => {})
-test('Should return completed items if filter is equal to completed', () => {})
-test('Should do nothing if filter does not exist', () => {})
+  expect(itemsReceived).toHaveLength(1)
+  expect(itemsReceived).toEqual([{
+    ...item2,
+    id: expect.anything()
+  }])
+})
+
+test('Should call data.publish when completed item removed', () => {
+  const data = new ItemsData()
+  const callback = jest.fn()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+
+  data.subscribe('updateList', callback)
+  data.addItem(item1, item2)
+  data.removeCompleted()
+
+  expect(callback.mock.calls.length).toBe(3)
+  // The first argument of third call should be the list with completed items removed
+  expect(callback.mock.calls[2][0]).toEqual([{
+    ...item2,
+    id: expect.anything()
+  }])
+})
+
+test('Should select all items if there is no selected/completed items', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: false
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: false
+  }
+
+  data.addItem(item1, item2, item3)
+  data.selectAll()
+  const itemsReceived = data.getList()
+
+  itemsReceived.forEach(({ completed }) => {
+    expect(completed).toBe(true)
+  })
+})
+
+test.todo('Should unselect all the items if there is no unselected items')
+test.todo('Should select unselected items and selected remain as they are')
+test.todo('Should call data.publish when items have been selected')
+
+test.todo('Should update filter to active')
+test.todo('Should update filter to completed')
+test.todo('Should call data.publish when filter has been updated')
+test.todo('Should return all items if filter is empty')
+test.todo('Should return uncompleted items if filter is equal to active')
+test.todo('Should return completed items if filter is equal to completed')
+test.todo('Should do nothing if filter does not exist')
