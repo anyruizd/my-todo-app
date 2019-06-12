@@ -186,10 +186,86 @@ test('Should allow to update an item value', () => {
   expect(itemsReceived[0].value).toBe('Hello2-1')
 })
 
-test('Should allow to update an item state', () => {})
-test('Should update nothing if id does not exist', () => {})
-test('Should not create a new item when updating', () => {})
-test('Should call data.publish when item updated', () => {})
+test('Should allow to update an item state', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: false
+  }
+  data.addItem(item1)
+  const initialItems = data.getList()
+  const idToEdit = initialItems[0].id
+  data.updateItem({ id: idToEdit, completed: true })
+
+  const itemsReceived = data.getList()
+  expect(itemsReceived[0].completed).toBe(true)
+})
+
+test('Should update nothing if id does not exist', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: false
+  }
+  const item2 = {
+    completed: true,
+    value: 'Hello2'
+  }
+  data.addItem(item1)
+  const idToEdit = 'item-12345'
+  data.updateItem({ ...item2, id: idToEdit })
+
+  const itemsReceived = data.getList()
+  expect(itemsReceived[0]).toEqual({
+    ...item1,
+    id: expect.any(String)
+  })
+})
+
+test('Should not create a new item when updating', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: false
+  }
+  const item2 = {
+    completed: true,
+    value: 'Hello2'
+  }
+  data.addItem(item1)
+  const initialItems = data.getList()
+  const idToEdit = initialItems[0].id
+  data.updateItem({ ...item2, id: idToEdit })
+
+  const itemsReceived = data.getList()
+  expect(itemsReceived).toHaveLength(1)
+})
+
+test('Should call data.publish when item updated', () => {
+  const data = new ItemsData()
+  const callback = jest.fn()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+
+  const item2 = {
+    completed: true,
+    value: 'Hello2'
+  }
+
+  data.subscribe('updateList', callback)
+  data.addItem(item1)
+  const initialItems = data.getList()
+  const idToEdit = initialItems[0].id
+  data.updateItem({ ...item2, id: idToEdit })
+
+  expect(callback.mock.calls.length).toBe(2)
+  expect(callback).toHaveBeenCalledWith([{
+    ...item2,
+    id: expect.any(String)
+  }])
+})
 
 test('Should remove completed items from the list', () => {})
 test('Should call data.publish when completed item removed', () => {})
