@@ -418,10 +418,100 @@ test('Should call data.publish when items have been selected', () => {
   }])
 })
 
-test.todo('Should update filter to active')
-test.todo('Should update filter to completed')
-test.todo('Should call data.publish when filter has been updated')
-test.todo('Should return all items if filter is empty')
-test.todo('Should return uncompleted items if filter is equal to active')
-test.todo('Should return completed items if filter is equal to completed')
-test.todo('Should do nothing if filter does not exist')
+test('Should update filter and return all items if filter is empty', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: false
+  }
+  const filter = ''
+  data.addItem(item1, item2, item3)
+  data.updateFilter(filter)
+  const receivedItems = data.getFilteredItems()
+
+  expect(receivedItems).toEqual([
+    { ...item1, id: expect.anything() },
+    { ...item2, id: expect.anything() },
+    { ...item3, id: expect.anything() }
+  ])
+})
+
+test('Should update filter and return uncompleted items if filter is equal to active', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: false
+  }
+  const filter = 'active'
+  data.addItem(item1, item2, item3)
+  data.updateFilter(filter)
+  const receivedItems = data.getFilteredItems()
+
+  expect(receivedItems).toEqual([
+    { ...item2, id: expect.anything() },
+    { ...item3, id: expect.anything() }
+  ])
+})
+
+test('Should update filter and return completed items if filter is equal to completed', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: true
+  }
+  const filter = 'completed'
+  data.addItem(item1, item2, item3)
+  data.updateFilter(filter)
+  const receivedItems = data.getFilteredItems()
+
+  expect(receivedItems).toEqual([
+    { ...item1, id: expect.anything() },
+    { ...item3, id: expect.anything() }
+  ])
+})
+
+test('Should return error message if filter does not exist', () => {
+  const data = new ItemsData()
+  const item1 = {
+    value: 'Hello1',
+    completed: true
+  }
+  const item2 = {
+    value: 'Hello2',
+    completed: false
+  }
+  const item3 = {
+    value: 'Hello3',
+    completed: false
+  }
+  const filter = 'holi'
+  data.addItem(item1, item2, item3)
+  data.updateFilter(filter)
+  const receivedItems = data.getFilteredItems()
+
+  expect(receivedItems).toBe('holi filter does not exist!') // Should this be an error?
+})

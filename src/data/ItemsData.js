@@ -73,6 +73,9 @@ export default class ItemsData extends PubSub {
     else if (this.filter === 'completed') {
       return this.getCompleted()
     }
+    else {
+      return `${this.filter} filter does not exist!`
+    }
   }
 
   getCompleted () {
