@@ -1,7 +1,7 @@
 import './footer.scss'
 import createLeftCounter from '../LeftCounter/createLeftCounter'
-import createFilters from '../Filters/createFilters'
-import createClearButton from '../ClearButton/createClearButton'
+import createFilters from '../Filters/'
+import createClearButton from '../ClearButton/'
 
 export default function createFooter (properties = {}) {
   const element = document.createElement('div')

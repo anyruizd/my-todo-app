@@ -1,6 +1,6 @@
 import createTitle from './components/Title/createTitle'
 import createItemCreator from './components/ItemCreator/createItemCreator'
-import createSelectAll from './components/SelectAll/createSelectAll'
+import createSelectAll from './components/SelectAll/'
 import createItemsContainer from './components/ItemsContainer/createItemsContainer'
 import createFooter from './components/Footer/createFooter'
 
