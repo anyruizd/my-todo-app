@@ -1,44 +1,48 @@
-import createItem from '../Item/createItem'
-import data from '../../data/data'
-
 import './itemsContainer.scss'
 
-export default function createItemsContainer (properties = {}) {
-  const element = document.createElement('ul')
-  element.classList.add('items-container')
+export default function makeCreateItemsContainer (dependencies) {
+  const {
+    data,
+    createItem
+  } = dependencies
 
-  function onSelect (id, completed) {
-    data.updateItem({ id, completed })
-  }
+  return function createItemsContainer (properties = {}) {
+    const element = document.createElement('ul')
+    element.classList.add('items-container')
 
-  function onRemove (id) {
-    data.removeItem(id)
-  }
+    function onSelect (id, completed) {
+      data.updateItem({ id, completed })
+    }
 
-  function onEdit (id, value) {
-    data.updateItem({ id, value })
-  }
+    function onRemove (id) {
+      data.removeItem(id)
+    }
 
-  function renderItems () {
-    const list = data.getFilteredItems()
+    function onEdit (id, value) {
+      data.updateItem({ id, value })
+    }
 
-    // Reset container before repainting
-    element.innerHTML = ''
+    function renderItems () {
+      const list = data.getFilteredItems()
 
-    list.forEach(itemData => {
-      const itemElement = createItem({
-        ...itemData,
-        onSelect,
-        onRemove,
-        onEdit
+      // Reset container before repainting
+      element.innerHTML = ''
+
+      list.forEach(itemData => {
+        const itemElement = createItem({
+          ...itemData,
+          onSelect,
+          onRemove,
+          onEdit
+        })
+        element.appendChild(itemElement)
       })
-      element.appendChild(itemElement)
-    })
+    }
+
+    data.subscribe('updateList', renderItems)
+    data.subscribe('updateFilter', renderItems)
+    renderItems()
+
+    return element
   }
-
-  data.subscribe('updateList', renderItems)
-  data.subscribe('updateFilter', renderItems)
-  renderItems()
-
-  return element
 }
