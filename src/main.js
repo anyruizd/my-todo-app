@@ -1,8 +1,8 @@
-import createTitle from './components/Title/createTitle'
+import createTitle from './components/Title'
 import createNewItem from './components/NewItem'
-import createSelectAll from './components/SelectAll/'
-import createItemsContainer from './components/ItemsContainer/'
-import createFooter from './components/Footer/'
+import createSelectAll from './components/SelectAll'
+import createItemsContainer from './components/ItemsContainer'
+import createFooter from './components/Footer'
 
 import './main.scss'
 
