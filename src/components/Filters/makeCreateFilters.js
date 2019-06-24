@@ -1,6 +1,6 @@
 import './filters.scss'
 
-export default function makeCreateFilters (dependencies) {
+export default function makeCreateFilters (dependencies = {}) {
   const { data } = dependencies
 
   return function createFilters (properties = {}) {
