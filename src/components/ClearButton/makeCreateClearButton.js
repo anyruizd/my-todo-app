@@ -1,4 +1,4 @@
-export default function makeCreateClearButton (dependencies) {
+export default function makeCreateClearButton (dependencies = {}) {
   const { data } = dependencies
   return function createClearButton () {
     const element = document.createElement('button')
