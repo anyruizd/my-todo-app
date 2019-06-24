@@ -1,6 +1,12 @@
 /* eslint-env jest */
 import makeCreateClearButton from './makeCreateClearButton'
 
+test('Should return a function', () => {
+  const createClearButton = makeCreateClearButton()
+
+  expect(createClearButton).toBeInstanceOf(Object)
+})
+
 test('Should return a button element', () => {
   const createClearButton = makeCreateClearButton()
   const buttonElement = createClearButton()
