@@ -4,7 +4,7 @@ import makeCreateClearButton from './makeCreateClearButton'
 test('Should return a function', () => {
   const createClearButton = makeCreateClearButton()
 
-  expect(createClearButton).toBeInstanceOf(Object)
+  expect(createClearButton).toBeInstanceOf(Function)
 })
 
 test('Should return a button element', () => {

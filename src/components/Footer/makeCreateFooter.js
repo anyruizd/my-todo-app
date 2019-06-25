@@ -1,6 +1,6 @@
 import './footer.scss'
 
-export default function makeCreateFooter (dependencies) {
+export default function makeCreateFooter (dependencies = {}) {
   const {
     createLeftCounter,
     createFilters,

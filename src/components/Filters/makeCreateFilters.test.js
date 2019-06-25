@@ -3,7 +3,7 @@ import makeCreateFilters from './makeCreateFilters'
 
 test('Should return a function', () => {
   const createFilters = makeCreateFilters()
-  expect(createFilters).toBeInstanceOf(Object)
+  expect(createFilters).toBeInstanceOf(Function)
 })
 
 test('Should return a div with filters classname', () => {
