@@ -1,6 +1,6 @@
 import createItem from '../Item/'
 import data from '../../data/data'
-import makeCreateItemsContainer from './createItemsContainer'
+import makeCreateItemsContainer from './makeCreateItemsContainer'
 
 const createItemsContainer = makeCreateItemsContainer({
   data,
