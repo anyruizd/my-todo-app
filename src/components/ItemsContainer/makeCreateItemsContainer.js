@@ -1,6 +1,6 @@
 import './itemsContainer.scss'
 
-export default function makeCreateItemsContainer (dependencies) {
+export default function makeCreateItemsContainer (dependencies = {}) {
   const {
     data,
     createItem
