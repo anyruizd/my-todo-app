@@ -32,7 +32,7 @@ test('Should call createItem', () => {
     createItem: jest.fn().mockReturnValue(dummyElement)
   }
   const createItemsContainer = makeCreateItemsContainer(dependencies)
-  const itemsContainer = createItemsContainer()
+  createItemsContainer()
 
   expect(dependencies.createItem).toHaveBeenCalled()
 })
@@ -47,7 +47,7 @@ test('Should subscribe updateList and updateFilter', () => {
     createItem: jest.fn().mockReturnValue(dummyElement)
   }
   const createItemsContainer = makeCreateItemsContainer(dependencies)
-  const itemsContainer = createItemsContainer()
+  createItemsContainer()
 
   expect(dependencies.data.subscribe).toHaveBeenCalledWith('updateList', expect.anything())
   expect(dependencies.data.subscribe).toHaveBeenCalledWith('updateFilter', expect.anything())
