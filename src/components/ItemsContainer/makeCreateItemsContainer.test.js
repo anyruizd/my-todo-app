@@ -49,6 +49,8 @@ test('Should subscribe updateList and updateFilter', () => {
   const createItemsContainer = makeCreateItemsContainer(dependencies)
   createItemsContainer()
 
-  expect(dependencies.data.subscribe).toHaveBeenCalledWith('updateList', expect.anything())
-  expect(dependencies.data.subscribe).toHaveBeenCalledWith('updateFilter', expect.anything())
+  const expected = dependencies.data.subscribe
+
+  expect(expected).toHaveBeenCalledWith('updateList', expect.anything())
+  expect(expected).toHaveBeenCalledWith('updateFilter', expect.anything())
 })
