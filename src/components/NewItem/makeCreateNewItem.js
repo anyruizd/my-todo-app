@@ -1,6 +1,6 @@
 import './newItem.scss'
 
-export default function makeCreateNewItem (dependencies) {
+export default function makeCreateNewItem (dependencies = {}) {
   const { data } = dependencies
   return function createNewItem (properties = {}) {
     const element = document.createElement('input')

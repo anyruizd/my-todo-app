@@ -40,7 +40,7 @@ export default function createItem (properties = {}) {
     element.classList.add('item--editing')
   })
 
-  itemEditElement.addEventListener('keypress', (event) => {
+  itemEditElement.addEventListener('keypress', event => {
     const enterKeyCode = 13
     const currentValue = event.keyCode
     const inputValue = event.target.value
