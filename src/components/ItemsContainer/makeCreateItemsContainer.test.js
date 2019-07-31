@@ -22,19 +22,29 @@ test('Should return an unordered list with items-container classname', () => {
   expect(itemsContainer.getAttribute('class')).toBe('items-container')
 })
 
-test('Should call createItem', () => {
+test('Should create a new item with the given data', () => {
   const dummyElement = document.createElement('div')
+  const item = {
+    id: '12345',
+    value: 'holi',
+    completed: false
+  }
   const dependencies = {
     data: {
       subscribe: jest.fn(),
-      getFilteredItems: jest.fn().mockReturnValue(['this is a dummy list'])
+      getFilteredItems: jest.fn().mockReturnValue([item])
     },
     createItem: jest.fn().mockReturnValue(dummyElement)
   }
   const createItemsContainer = makeCreateItemsContainer(dependencies)
   createItemsContainer()
 
-  expect(dependencies.createItem).toHaveBeenCalled()
+  expect(dependencies.createItem).toHaveBeenCalledWith(
+    { ...item,
+      'onEdit': expect.anything(),
+      'onRemove': expect.anything(),
+      'onSelect': expect.anything()
+    })
 })
 
 test('Should subscribe updateList and updateFilter', () => {
@@ -49,8 +59,8 @@ test('Should subscribe updateList and updateFilter', () => {
   const createItemsContainer = makeCreateItemsContainer(dependencies)
   createItemsContainer()
 
-  const expected = dependencies.data.subscribe
+  const subscribeCall = dependencies.data.subscribe
 
-  expect(expected).toHaveBeenCalledWith('updateList', expect.anything())
-  expect(expected).toHaveBeenCalledWith('updateFilter', expect.anything())
+  expect(subscribeCall).toHaveBeenCalledWith('updateList', expect.anything())
+  expect(subscribeCall).toHaveBeenCalledWith('updateFilter', expect.anything())
 })
