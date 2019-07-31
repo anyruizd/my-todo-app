@@ -3,8 +3,7 @@ import { createItem } from './createItem'
 
 test('Should return an li element', () => {
   const element = createItem()
-  const expected = element.tagName
-  expect(expected).toBe('LI')
+  expect(element.tagName).toBe('LI')
 })
 
 test('Should render element with provided properties', () => {
@@ -32,17 +31,10 @@ test('Should be checked and have item--selected class when completed true', () =
     value: 'Hola1',
     completed: true
   }
-  const expected = `
-    <div class="item__checkbox">
-      <input checked="" type="checkbox" value="None" id="item-12345" name="check">
-      <label for="item-12345"></label>
-    </div>
-    <span class="item__text">Hola1</span>
-    <input class="item__edit" type="text" value="Hola1">
-    <button class="item__remove"></button>
-  `
   const element = createItem(properties)
-  expect(element.innerHTML).toBe(expected)
+  const isChecked = element.querySelector('input[type="checkbox"]').checked
+
+  expect(isChecked).toBe(true)
   expect(element.getAttribute('class')).toBe('item item--selected')
 })
 
