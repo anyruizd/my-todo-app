@@ -1,6 +1,6 @@
 import './selectAll.scss'
 
-export default function makeCreateSelectAll (dependencies = {}) {
+export function makeCreateSelectAll (dependencies = {}) {
   const { data } = dependencies
   return function createSelectAll (properties = {}) {
     const element = document.createElement('button')

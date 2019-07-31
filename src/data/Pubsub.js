@@ -1,4 +1,4 @@
-export default class PubSub {
+export class PubSub {
   constructor () {
     this.subscribers = []
   }

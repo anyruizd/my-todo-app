@@ -1,6 +1,6 @@
 import './leftCounter.scss'
 
-export default function makeCreateLeftCounter (dependencies = {}) {
+export function makeCreateLeftCounter (dependencies = {}) {
   const { data } = dependencies
   return function createLeftCounter (properties = {}) {
     const element = document.createElement('div')

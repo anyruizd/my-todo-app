@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import makeCreateFilters from './makeCreateFilters'
+import { makeCreateFilters } from './makeCreateFilters'
 
 test('Should return a function', () => {
   const createFilters = makeCreateFilters()

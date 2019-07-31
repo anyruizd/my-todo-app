@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import createTitle from './createTitle'
+import { createTitle } from './createTitle'
 
 describe('createTitle()', () => {
   test('Should create an h1 element', () => {

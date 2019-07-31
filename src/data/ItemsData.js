@@ -1,6 +1,6 @@
-import PubSub from './PubSub'
+import { PubSub } from './PubSub'
 
-export default class ItemsData extends PubSub {
+export class ItemsData extends PubSub {
   constructor (list = []) {
     super()
     this.list = list

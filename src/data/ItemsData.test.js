@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import ItemsData from './ItemsData'
+import { ItemsData } from './ItemsData'
 
 test('Should return the list of items', () => {
   const data = new ItemsData()

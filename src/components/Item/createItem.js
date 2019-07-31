@@ -1,6 +1,6 @@
 import './item.scss'
 
-export default function createItem (properties = {}) {
+export function createItem (properties = {}) {
   const {
     id,
     value,

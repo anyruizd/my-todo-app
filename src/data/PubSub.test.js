@@ -1,6 +1,6 @@
 /* eslint-env jest */
 
-import PubSub from './Pubsub'
+import { PubSub } from './Pubsub'
 
 describe('PubSub()', () => {
   describe('subscribe()', () => {

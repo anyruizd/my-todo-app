@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import makeCreateFooter from './makeCreateFooter'
+import { makeCreateFooter } from './makeCreateFooter'
 
 test('Should return a function', () => {
   const createFooter = makeCreateFooter()

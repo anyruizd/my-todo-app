@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import makeCreateClearButton from './makeCreateClearButton'
+import { makeCreateClearButton } from './makeCreateClearButton'
 
 test('Should return a function', () => {
   const createClearButton = makeCreateClearButton()

@@ -1,12 +1,12 @@
-import createTitle from '../Title'
-import createNewItem from '../NewItem'
-import createSelectAll from '../SelectAll'
-import createItemsContainer from '../ItemsContainer'
-import createFooter from '../Footer'
+import { createTitle } from '../Title'
+import { createNewItem } from '../NewItem'
+import { createSelectAll } from '../SelectAll'
+import { createItemsContainer } from '../ItemsContainer'
+import { createFooter } from '../Footer'
 
 import './App.scss'
 
-export default function createApp (node) {
+export function createApp (node) {
   const title = createTitle()
   const newItem = createNewItem()
   const selectAllButton = createSelectAll()

@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import makeCreateLeftCounter from './makeCreateLeftCounter'
+import { makeCreateLeftCounter } from './makeCreateLeftCounter'
 
 test('Should return a function', () => {
   const createLeftCounter = makeCreateLeftCounter()

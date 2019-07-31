@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import makeCreateItemsContainer from './makeCreateItemsContainer'
+import { makeCreateItemsContainer } from './makeCreateItemsContainer'
 
 test('Should return a function', () => {
   const createItemsContainer = makeCreateItemsContainer()

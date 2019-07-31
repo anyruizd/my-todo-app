@@ -1,3 +1,1 @@
-import createApp from './createApp'
-
-export default createApp
+export * from './createApp'

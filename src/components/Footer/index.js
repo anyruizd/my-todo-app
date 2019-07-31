@@ -1,7 +1,7 @@
-import createLeftCounter from '../LeftCounter/'
-import createFilters from '../Filters/'
-import createClearButton from '../ClearButton/'
-import makeCreateFooter from './makeCreateFooter'
+import { createLeftCounter } from '../LeftCounter/'
+import { createFilters } from '../Filters/'
+import { createClearButton } from '../ClearButton/'
+import { makeCreateFooter } from './makeCreateFooter'
 
 const createFooter = makeCreateFooter({
   createLeftCounter,
@@ -9,4 +9,4 @@ const createFooter = makeCreateFooter({
   createClearButton
 })
 
-export default createFooter
+export { createFooter }

@@ -1,3 +1,1 @@
-import createTitle from './createTitle'
-
-export default createTitle
+export * from './createTitle'

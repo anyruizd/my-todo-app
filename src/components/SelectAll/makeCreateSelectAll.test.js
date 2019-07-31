@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import makeCreateSelectAll from './makeCreateSelectAll'
+import { makeCreateSelectAll } from './makeCreateSelectAll'
 
 test('Should return a function', () => {
   const createSelectAll = makeCreateSelectAll()

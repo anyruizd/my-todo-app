@@ -1,5 +1,5 @@
 /* eslint-env jest */
-import createItem from './createItem'
+import { createItem } from './createItem'
 
 test('Should return an li element', () => {
   const element = createItem()
