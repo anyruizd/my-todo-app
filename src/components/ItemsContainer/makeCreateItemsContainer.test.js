@@ -47,7 +47,7 @@ test('Should create a new item with the given data', () => {
     })
 })
 
-test('Should subscribe updateList and updateFilter', () => {
+test('Should re render when updateList is called', () => {
   const dummyElement = document.createElement('div')
   const dependencies = {
     data: {
@@ -64,3 +64,21 @@ test('Should subscribe updateList and updateFilter', () => {
   expect(subscribeCall).toHaveBeenCalledWith('updateList', expect.anything())
   expect(subscribeCall).toHaveBeenCalledWith('updateFilter', expect.anything())
 })
+// TODO
+/* test('Should subscribe updateList and updateFilter', () => {
+  const dummyEle = document.createElement('div')
+  const dependencies = {
+    data: {
+      subscribe: jest.fn(),
+      getFilteredItems: jest.fn().mockReturnValue(['this is a dummy list'])
+    },
+    createItem: jest.fn().mockReturnValue(dummyElement)
+  }
+  const createItemsContainer = makeCreateItemsContainer(dependencies)
+  createItemsContainer()
+
+  const subscribeCall = dependencies.data.subscribe
+
+  expect(subscribeCall).toHaveBeenCalledWith('updateList', expect.anything())
+  expect(subscribeCall).toHaveBeenCalledWith('updateFilter', expect.anything())
+}) */
