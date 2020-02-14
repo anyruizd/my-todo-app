@@ -6,23 +6,20 @@ test('Should return an li element', () => {
   expect(element.tagName).toBe('LI')
 })
 
-test('Should render element with provided properties', () => {
+test('Should render element with provided id, value and completed state', () => {
   const properties = {
     id: 'item-12345',
     value: 'Hola1',
     completed: false
   }
-  const expected = `
-    <div class="item__checkbox">
-      <input type="checkbox" value="None" id="item-12345" name="check">
-      <label for="item-12345"></label>
-    </div>
-    <span class="item__text">Hola1</span>
-    <input class="item__edit" type="text" value="Hola1">
-    <button class="item__remove"></button>
-  `
   const element = createItem(properties)
-  expect(element.innerHTML).toBe(expected)
+  const elementId = element.querySelector('input[type="checkbox"]').id
+  const elementValue = element.querySelector('span').innerHTML
+  const elementChecked = element.querySelector('input[type="checkbox"]').checked
+
+  expect(elementId).toBe(properties.id)
+  expect(elementValue).toBe(properties.value)
+  expect(elementChecked).toBe(properties.completed)
 })
 
 test('Should be checked and have item--selected class when completed true', () => {

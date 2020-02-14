@@ -22,7 +22,7 @@ test('Should return an unordered list with items-container classname', () => {
   expect(itemsContainer.getAttribute('class')).toBe('items-container')
 })
 
-test('Should create a new item with the given data', () => {
+test('Should create a new item with the given id, value and completed status', () => {
   const dummyElement = document.createElement('div')
   const item = {
     id: '12345',
@@ -47,7 +47,7 @@ test('Should create a new item with the given data', () => {
     })
 })
 
-test('Should re render when updateList is called', () => {
+test('Should re render the item when updateList is called', () => {
   const dummyElement = document.createElement('div')
   const dependencies = {
     data: {
@@ -64,21 +64,21 @@ test('Should re render when updateList is called', () => {
   expect(subscribeCall).toHaveBeenCalledWith('updateList', expect.anything())
   expect(subscribeCall).toHaveBeenCalledWith('updateFilter', expect.anything())
 })
-// TODO
-/* test('Should subscribe updateList and updateFilter', () => {
-  const dummyEle = document.createElement('div')
+
+test('Should call renderItems when the createItemsContainer is created', () => {
+  const dummyElement = document.createElement('div')
+
   const dependencies = {
     data: {
       subscribe: jest.fn(),
-      getFilteredItems: jest.fn().mockReturnValue(['this is a dummy list'])
+      getFilteredItems: jest.fn().mockReturnValueOnce(['holi']),
+      publish: jest.fn()
     },
     createItem: jest.fn().mockReturnValue(dummyElement)
   }
   const createItemsContainer = makeCreateItemsContainer(dependencies)
   createItemsContainer()
 
-  const subscribeCall = dependencies.data.subscribe
-
-  expect(subscribeCall).toHaveBeenCalledWith('updateList', expect.anything())
-  expect(subscribeCall).toHaveBeenCalledWith('updateFilter', expect.anything())
-}) */
+  expect(dependencies.data.getFilteredItems).toHaveBeenCalledTimes(1)
+  expect(dependencies.data.getFilteredItems.mock.results[0].value).toEqual(['holi'])
+})
