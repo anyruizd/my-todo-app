@@ -2,4 +2,5 @@
 node_modules/
 .npm
 .vscode/*
-dist/
+*.css.map
+*.js.map

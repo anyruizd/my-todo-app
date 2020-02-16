@@ -5,14 +5,17 @@ This is my own version of the simple [To-Do](http://todomvc.com/) app 📝. It w
 
 ## Things I learned
 The main purpose of creating this app was to practice and acquire new skills in vanilla javascript. This is a vague list of things I learned:
-- Function composition
-- Components that received props and returned HTML elements.
+- Configure Webpack, Babel, ESLint and Jest.
+- Single responsibility principle creating components that received props and returned HTML elements.
+- Function composition.
 - Some design patterns such as publish/subscribe and factory functions.
 - Vanilla state management using my very own pub/sub implementation.
 - Testing and mocking with Jest.
-- Component with dependencies that used the factory pattern to make them testable.
+- Dependency injection by using factory pattern to make components easier to test.
 
 ## How does it work?
+This app requires at least Node v12.
+
 ### Install dependencies ⏳📉
 ```bash
 $ npm install
