@@ -31,3 +31,7 @@ $ npm start
 ```bash
 $ npm run test-dev
 ```
+
+### Acknowledgment
+
+I would like to give a shout-out to [Romel Pérez](https://github.com/romelperez/) for his invaluable help, for being such a great mentor, and for leading me to apply the best development practices in this project.
